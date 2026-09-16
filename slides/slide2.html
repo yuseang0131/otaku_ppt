@@ -2,19 +2,67 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>웹 PPT - 2번 슬라이드</title>
-    <!-- ../ 로 상위 폴더로 이동하여 css 연결 -->
+    <title>웹 PPT - 본문 슬라이드 1</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
-<!-- 이전 페이지는 상위 폴더의 index.html, 다음 페이지는 같은 폴더의 slide3.html -->
-<body data-prev="../index.html" data-next="slide3.html">
+<!-- 이전은 목차(slide1.html), 다음은 2번 주제(slide3.html)로 연결 -->
+<body data-prev="slide1.html" data-next="slide3.html">
     
-    <div class="slide-container">
-        <h2>두 번째 슬라이드</h2>
-        <p>왼쪽 방향키(←)를 누르면 이전으로 돌아갑니다.</p>
+    <!-- 전체 화면을 넓게 쓰기 위한 full-width 클래스 추가 -->
+    <div class="slide-container full-width">
+        
+        <!-- 상단 제목 영역 -->
+        <header class="slide-header">
+            <h2>일본 서브컬처는 어떻게 연결되어 발전했는가?</h2>
+            <p class="subtitle">서사·캐릭터·팬 참여·매체를 함께 보는 통합적 관점</p>
+        </header>
+
+        <!-- 좌우 분할 영역 -->
+        <div class="content-split">
+            
+            <!-- 좌측 60% : 텍스트 서술 영역 -->
+            <div class="left-panel">
+                <section>
+                    <h3>1. 서브컬처 발전의 핵심 동력</h3>
+                    <ul>
+                        <li><strong>재해석과 확장:</strong> 기존 작품의 서사와 캐릭터를 다음 세대 창작자들이 끊임없이 <span class="highlight">재해석</span>함.</li>
+                        <li><strong>프로슈머 생태계:</strong> 팬들의 자발적인 2차 창작(동인 문화)과 새로운 유통 기술(인터넷, 모바일)이 결합함.</li>
+                        <li><strong>결과:</strong> 하나의 단일 작품으로 끝나지 않고 다른 매체로 무한히 <span class="highlight">확장</span>되는 거대한 '미디어 생태계'를 구축함.</li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <h3>2. 진화의 역사적 특징: '대체'가 아닌 '공존과 누적'</h3>
+                    <ul>
+                        <li>시대마다 특정 경향이 이전 경향을 완전히 대체했다는 시각은 실제 역사와 어긋남.</li>
+                        <li>거대한 세계관, 다크 판타지, 소소한 일상물, 캐릭터 중심의 모에 문화는 단절되지 않고 여러 시대에 걸쳐 층층이 <span class="highlight">공존과 누적</span>되며 함께 성장해 옴.</li>
+                    </ul>
+                </section>
+            </div>
+
+            <!-- 우측 40% : 4대 핵심 축 인포그래픽 영역 (2x2 그리드) -->
+            <div class="right-panel">
+                <div class="axis-box">
+                    <h4>서사 (Narrative)</h4>
+                    <p>시대의 불안과 욕망 반영,<br>기존 장르의 문법 해체·융합</p>
+                </div>
+                <div class="axis-box">
+                    <h4>캐릭터 (Character)</h4>
+                    <p>이야기의 부속품을 넘어,<br>팬과 직접 애착 관계를 형성</p>
+                </div>
+                <div class="axis-box">
+                    <h4>팬 참여 (Fan)</h4>
+                    <p>소비자를 넘어선 문화 생산자<br>(동인지, 비평, 오시카츠)</p>
+                </div>
+                <div class="axis-box">
+                    <h4>매체 (Media)</h4>
+                    <p>코믹마켓부터 VTuber까지<br>기술 변화에 발맞춘 생명력</p>
+                </div>
+            </div>
+
+        </div>
     </div>
 
-    <!-- ../ 로 상위 폴더로 이동하여 js 연결 -->
     <script src="../js/script.js"></script>
 </body>
 </html>
