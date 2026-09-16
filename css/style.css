@@ -1,0 +1,258 @@
+/* 화면 전체를 채우고, 내용을 정중앙에 배치 */
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2b2b2b; /* 어두운 배경 */
+    color: #ffffff; /* 흰색 글씨 */
+    font-family: 'Arial', sans-serif;
+    overflow: hidden; /* 스크롤바 숨기기 */
+}
+
+/* 슬라이드 내용이 담기는 박스 */
+.slide-container {
+    text-align: center;
+    padding: 40px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1); /* 반투명 박스 */
+}
+
+/* --- 표지 슬라이드(Slide 0) 전용 스타일 --- */
+
+.cover-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center; /* 세로 기준 중앙 정렬 */
+    
+    /* 👇 여기에 관리자님이 찾으신 이미지 경로를 적어주세요! */
+    /* 예시: background-image: url('../assets/my-cover-image.jpg'); */
+    background-image: url('여기에_이미지_경로_입력'); 
+    
+    background-size: cover;
+    background-position: center;
+}
+
+/* 왼쪽은 어둡고 오른쪽으로 갈수록 투명해지는 그라데이션 효과 */
+.cover-slide .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 40%, rgba(0, 0, 0, 0.1) 100%);
+    z-index: 1;
+}
+
+/* 텍스트 영역 설정 */
+.cover-slide .content {
+    position: relative;
+    z-index: 2; /* 오버레이보다 위에 글씨가 오도록 설정 */
+    padding-left: 10%; /* 화면 왼쪽에서 약간 띄움 */
+    max-width: 60%; /* 글씨가 화면 끝까지 가지 않도록 제한 */
+    text-align: left;
+}
+
+.cover-slide .main-title {
+    font-size: 3.5rem;
+    font-weight: bold;
+    line-height: 1.4;
+    margin-bottom: 20px;
+    word-break: keep-all; /* 단어가 중간에 끊기지 않고 줄바꿈되도록 설정 */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.cover-slide .sub-title {
+    font-size: 1.5rem;
+    color: #e0e0e0; /* 약간 옅은 회색으로 부제목 처리 */
+    word-break: keep-all;
+    font-weight: 300;
+}
+/* --- 목차 슬라이드(Slide 1) 전용 스타일 --- */
+
+.toc-container {
+    width: 90vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.toc-title {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #ffd700; /* 목차 제목에 포인트 컬러 (금색) */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.toc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3열 배치 */
+    gap: 20px; /* 카드 사이 간격 */
+    width: 100%;
+    max-width: 1200px;
+}
+
+.toc-card {
+    background-color: rgba(40, 40, 40, 0.8);
+    border: 1px solid #444;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.toc-card:hover {
+    transform: translateY(-5px); /* 마우스를 올리면 살짝 위로 떠오르는 효과 */
+    background-color: rgba(60, 60, 60, 0.9);
+}
+
+.toc-card h3 {
+    font-size: 1.2rem;
+    color: #4da6ff; /* 시대별 제목 색상 */
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #555;
+    padding-bottom: 10px;
+}
+
+.toc-card ul {
+    list-style-type: none; /* 기본 점(bullet) 없애기 */
+    padding: 0;
+    margin: 0;
+}
+
+.toc-card li {
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    color: #dcdcdc;
+    word-break: keep-all;
+}
+
+.toc-card li strong {
+    color: #ff9999; /* 번호 강조 */
+    margin-right: 5px;
+}
+
+/* --- 본문 슬라이드(Slide 2) 전용 스타일 --- */
+
+/* 슬라이드를 가로로 넓게 사용 */
+.slide-container.full-width {
+    width: 85vw;
+    max-width: 1400px;
+    text-align: left;
+}
+
+/* 제목 및 부제목 디자인 */
+.slide-header {
+    margin-bottom: 30px;
+    border-bottom: 2px solid #555;
+    padding-bottom: 15px;
+}
+
+.slide-header h2 {
+    font-size: 2.2rem;
+    margin: 0 0 10px 0;
+    color: #ffffff;
+}
+
+.slide-header .subtitle {
+    font-size: 1.2rem;
+    color: #b3b3b3;
+    margin: 0;
+}
+
+/* 60:40 좌우 분할 */
+.content-split {
+    display: flex;
+    gap: 40px;
+    align-items: stretch; /* 좌우 높이를 맞춤 */
+}
+
+/* 좌측 텍스트 패널 (60%) */
+.left-panel {
+    flex: 6; 
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.left-panel h3 {
+    font-size: 1.4rem;
+    color: #ffcc00; /* 노란색 계열 포인트 */
+    margin: 0 0 15px 0;
+}
+
+.left-panel ul {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.left-panel li {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    color: #e0e0e0;
+    word-break: keep-all;
+}
+
+/* 🎯 키워드 강조 스타일 (파란색, 크기 확대, 볼드) */
+.highlight {
+    color: #4da6ff;
+    font-size: 1.15em;
+    font-weight: bold;
+}
+
+/* 우측 4대 핵심 축 패널 (40%) */
+.right-panel {
+    flex: 4; 
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2열 십자(+) 형태 배치 */
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
+}
+
+.axis-box {
+    background-color: rgba(50, 50, 50, 0.8);
+    border: 2px solid #666;
+    border-radius: 12px;
+    padding: 25px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+/* 마우스 호버 시 살짝 확대 및 테두리 색상 변경 */
+.axis-box:hover {
+    transform: scale(1.03);
+    border-color: #4da6ff;
+    box-shadow: 0 4px 15px rgba(77, 166, 255, 0.2);
+}
+
+.axis-box h4 {
+    margin: 0 0 12px 0;
+    color: #ff9999; /* 붉은색 계열 포인트 */
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+.axis-box p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #cccccc;
+    text-align: center;
+    word-break: keep-all;
+}
