@@ -2,15 +2,59 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>웹 PPT - 3번 슬라이드</title>
+    <title>웹 PPT - 본문 슬라이드 2</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
-<!-- 다음 페이지가 없다면 data-next를 비워둡니다. -->
-<body data-prev="slide2.html" data-next="">
+<!-- 이전은 슬라이드 1(slide2.html), 다음은 슬라이드 3(slide4.html)으로 연결 -->
+<body data-prev="slide2.html" data-next="slide4.html">
     
-    <div class="slide-container">
-        <h2>세 번째 슬라이드 (마지막)</h2>
-        <p>발표가 끝났습니다.</p>
+    <div class="slide-container full-width">
+        
+        <header class="slide-header">
+            <h2>1990년대 이전의 세 가지 기반</h2>
+            <p class="subtitle">인간성의 질문, 캐릭터 팬덤, 동인 창작 (1960~1980s)</p>
+        </header>
+
+        <!-- 3개의 기둥 레이아웃 -->
+        <div class="pillars-wrapper">
+            
+            <!-- 기둥 1: 서사 -->
+            <div class="pillar pillar-narrative">
+                <div class="pillar-icon">📖</div>
+                <h3>1. 서사: 인간과 세계를 묻다</h3>
+                <ul>
+                    <li><strong>『철완 아톰』 (1950~60s)</strong><br>만화·방송·상품의 최초 연결. 인간과 비인간의 경계, 과학의 책임 탐구.</li>
+                    <li><strong>『데빌맨』 (1970s)</strong><br>공포와 증오 속에서 "괴물은 누구인가?", "집단의 정의는 정당한가?"라는 극단적 질문 투척.</li>
+                </ul>
+            </div>
+
+            <!-- 기둥 2: 캐릭터 -->
+            <div class="pillar pillar-character">
+                <div class="pillar-icon">⭐</div>
+                <h3>2. 캐릭터: 애착과 팬덤의 형성</h3>
+                <ul>
+                    <li><strong>『기동전사 건담』 (1970s)</strong><br>거대한 힘(로봇)에 대한 책임과 조종사의 심리, 전쟁의 정치성 묘사.</li>
+                    <li><strong>『시끌별 녀석들』, 『마크로스』 (1980s)</strong><br>연애 서사, 특정 인물에 대한 애착, 성우와 노래가 결합하며 '인물별 팬덤' 탄생.</li>
+                </ul>
+            </div>
+
+            <!-- 기둥 3: 팬 참여 -->
+            <div class="pillar pillar-fan">
+                <div class="pillar-icon">📝</div>
+                <h3>3. 팬 참여: 창작하는 소비자</h3>
+                <ul>
+                    <li><strong>코믹마켓 (1975~)</strong><br>소녀만화 팬(여성 참가자)을 중심으로 동인 행사 시작.</li>
+                    <li><strong>생태계 원형 구축</strong><br>비평과 패러디, 동인지 제작을 통해 팬이 서로 교류하고 창작자로 진입하는 토대 마련.</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- 다음 시대로 넘어감을 암시하는 옅은 화살표 -->
+        <div class="next-era-arrow">
+            ⬇
+        </div>
+
     </div>
 
     <script src="../js/script.js"></script>
