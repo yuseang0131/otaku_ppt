@@ -7,52 +7,69 @@
 </head>
 <body data-prev="slide9.html" data-next="slide11.html">
     
-    <div class="slide-container full-width">
+    <!-- 🎯 video-slide 클래스 추가 -->
+    <div class="slide-container full-width video-slide">
         
-        <header class="slide-header">
+        <!-- 슬라이드 배경 영상 -->
+        <video autoplay muted loop playsinline class="slide-video-bg">
+            <source src="C:\wotaku_ppt\assets\heavensfeel.mp4" type="video/mp4">
+        </video>
+
+        <header class="slide-header content-front">
             <h2>캐릭터와 보낸 시간이 이야기가 되다</h2>
             <p class="subtitle">비주얼 노벨의 진화: 감정적 몰입과 세계관의 확장 (2000s)</p>
         </header>
 
-        <!-- 좌우 이분할 비주얼 노벨 테마 레이아웃 -->
-        <div class="vn-layout">
+        <!-- 좌우 2분할 레이아웃 -->
+        <div class="vn-layout content-front">
             
-            <!-- 좌측: Key 계열 (따뜻한 오렌지 톤) -->
+            <!-- 좌측: Key 계열 -->
             <div class="vn-card key-theme">
                 <h3>1. 감정적 비주얼 노벨: 일상의 무게와 구원</h3>
-                <div class="vn-games">『AIR』(2000), 『CLANNAD』(2004) 등 Key 제작사 작품</div>
+                <div class="vn-games">『AIR』(2000) & 『CLANNAD』(2004) 등 Key 작품</div>
+                
+                <div class="vn-img-row">
+                    <img src="../assets/Ait.jpg" alt="AIR" class="vn-img">
+                    <img src="../assets/clannad.webp" alt="CLANNAD" class="vn-img">
+                </div>
+
                 <ul>
-                    <li>캐릭터와 함께하는 소소한 일상에 대한 애착을 가족, 상실, 그리고 돌봄이라는 깊고 감정적인 서사로 발전시킴.</li>
+                    <li>소소한 일상에 대한 애착을 가족, 상실, 돌봄이라는 깊고 감정적인 서사로 발전시킴.</li>
                 </ul>
             </div>
 
-            <!-- 우측: TYPE-MOON 계열 (다크 블루 & 레드 톤) -->
+            <!-- 우측: TYPE-MOON 계열 -->
             <div class="vn-card typemoon-theme">
-                <h3>2. 전기·세계관 중심 게임: 다중 루트와 평행 우주</h3>
-                <div class="vn-games">『월희』(2000), 『Fate/stay night』(2004) 등 TYPE-MOON 작품</div>
+                <h3>2. 전기·세계관 중심: 다중 루트와 평행 우주</h3>
+                <div class="vn-games">『월희』(2000) & 『Fate/stay night』(2004) 등 TYPE-MOON 작품</div>
+                
+                <div class="vn-img-row">
+                    <img src="../assets/blueglassmoon.webp" alt="월희" class="vn-img">
+                    <img src="../assets/fsn.webp" alt="Fate/stay night" class="vn-img">
+                </div>
+
                 <ul>
                     <li>방대한 고유 명사로 점철된 독창적인 거대 평행 우주 세계관(나스버스) 창조.</li>
-                    <li>선택지에 따른 '인물별 루트(Route)'가 곧 세계관과 주인공의 이면을 다르게 이해하는 탐구의 경로로 작동함.</li>
+                    <li>'인물별 루트(Route)'가 세계관과 주인공의 이면을 탐구하는 경로로 작동함.</li>
                 </ul>
             </div>
             
         </div>
 
-        <!-- 하단: 시너지 효과 및 인포그래픽 -->
-        <div class="synergy-section">
+        <!-- 하단: 시너지 효과 -->
+        <div class="synergy-section content-front">
             <div class="synergy-text">
                 <h3>3. 매체적 특성을 통한 감정과 서사의 시너지</h3>
                 <ul>
-                    <li>텍스트, 음악, 정지화면을 활용해 플레이어가 긴 시간 동안 인물과 호흡하게 함.</li>
-                    <li>결과적으로 <strong>'캐릭터를 좋아하는 감정'</strong>과 <strong>'복잡한 이야기를 깊게 읽는 경험'</strong>이 서로를 강력하게 강화함.</li>
+                    <li>텍스트, 음악, 정지화면을 활용해 긴 시간 동안 인물과 호흡함.</li>
+                    <li><strong>'캐릭터를 좋아하는 감정'</strong>과 <strong>'복잡한 이야기를 읽는 경험'</strong>이 서로를 강력하게 강화함.</li>
                 </ul>
             </div>
             
-            <!-- 무한대 순환 인포그래픽 -->
             <div class="infinity-infographic">
-                <div class="inf-node">[캐릭터 애착]</div>
+                <div class="inf-node bg-pink">[캐릭터 애착]</div>
                 <div class="inf-symbol">∞</div>
-                <div class="inf-node">[세계관 몰입]</div>
+                <div class="inf-node bg-blue">[세계관 몰입]</div>
             </div>
         </div>
 

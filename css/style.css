@@ -1,900 +1,967 @@
-/* 화면 전체를 채우고, 내용을 정중앙에 배치 */
+/* --- 글로벌 라이트 테마 기본 설정 --- */
 body {
+    background-color: #f4f6f9; /* 배경: 눈이 편안한 밝은 회색 */
+    color: #333333; /* 기본 텍스트: 짙은 회색 */
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
     margin: 0;
     padding: 0;
-    width: 100vw;
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #2b2b2b; /* 어두운 배경 */
-    color: #ffffff; /* 흰색 글씨 */
-    font-family: 'Arial', sans-serif;
-    overflow: hidden; /* 스크롤바 숨기기 */
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
-/* 슬라이드 내용이 담기는 박스 */
+/* 슬라이드 컨테이너 (흰색 도화지 역할) */
 .slide-container {
-    text-align: center;
-    padding: 40px;
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.1); /* 반투명 박스 */
-}
-
-/* --- 표지 슬라이드(Slide 0) 전용 스타일 --- */
-
-.cover-slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: center; /* 세로 기준 중앙 정렬 */
-    
-    /* 👇 여기에 관리자님이 찾으신 이미지 경로를 적어주세요! */
-    /* 예시: background-image: url('../assets/my-cover-image.jpg'); */
-    background-image: url('여기에_이미지_경로_입력'); 
-    
-    background-size: cover;
-    background-position: center;
-}
-
-/* 왼쪽은 어둡고 오른쪽으로 갈수록 투명해지는 그라데이션 효과 */
-.cover-slide .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 40%, rgba(0, 0, 0, 0.1) 100%);
-    z-index: 1;
-}
-
-/* 텍스트 영역 설정 */
-.cover-slide .content {
+    background-color: #ffffff;
+    width: 90%;
+    max-width: 1400px;
+    height: 80vh; /* 화면의 80% 높이 고정 */
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* 부드러운 그림자 */
+    padding: 35px 50px; /* 상하 여백을 줄여 공간 확보 */
     position: relative;
-    z-index: 2; /* 오버레이보다 위에 글씨가 오도록 설정 */
-    padding-left: 10%; /* 화면 왼쪽에서 약간 띄움 */
-    max-width: 60%; /* 글씨가 화면 끝까지 가지 않도록 제한 */
-    text-align: left;
+    box-sizing: border-box;
+    overflow-y: hidden; /* 스크롤바가 생기지 않도록 숨김 */
 }
 
-.cover-slide .main-title {
-    font-size: 3.5rem;
-    font-weight: bold;
-    line-height: 1.4;
-    margin-bottom: 20px;
-    word-break: keep-all; /* 단어가 중간에 끊기지 않고 줄바꿈되도록 설정 */
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-}
-
-.cover-slide .sub-title {
-    font-size: 1.5rem;
-    color: #e0e0e0; /* 약간 옅은 회색으로 부제목 처리 */
-    word-break: keep-all;
-    font-weight: 300;
-}
-/* --- 목차 슬라이드(Slide 1) 전용 스타일 --- */
-
-.toc-container {
-    width: 90vw;
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
+/* --- 본문 슬라이드 1 (Slide 1) 목차 전용 스타일 --- */
 .toc-title {
-    font-size: 2.5rem;
-    margin-bottom: 30px;
     text-align: center;
-    color: #ffd700; /* 목차 제목에 포인트 컬러 (금색) */
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    color: #111111;
+    font-size: 2.2rem; /* 제목 크기 소폭 축소 */
+    margin-top: 0;
+    margin-bottom: 25px; /* 타이틀 아래 여백 축소 */
+    font-weight: 800;
 }
 
+/* 3x2 그리드 배열 */
 .toc-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3열 배치 */
-    gap: 20px; /* 카드 사이 간격 */
-    width: 100%;
-    max-width: 1200px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px; /* 카드 사이의 간격 축소 */
 }
 
 .toc-card {
-    background-color: rgba(40, 40, 40, 0.8);
-    border: 1px solid #444;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-top: 5px solid #0056b3; /* 포인트 컬러: 블루 */
+    border-radius: 8px;
+    padding: 15px 20px; /* 카드 내부 상하좌우 여백 대폭 축소 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .toc-card:hover {
-    transform: translateY(-5px); /* 마우스를 올리면 살짝 위로 떠오르는 효과 */
-    background-color: rgba(60, 60, 60, 0.9);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
 }
 
 .toc-card h3 {
-    font-size: 1.2rem;
-    color: #4da6ff; /* 시대별 제목 색상 */
-    margin-top: 0;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #555;
-    padding-bottom: 10px;
+    color: #0056b3;
+    font-size: 1.1rem; /* 챕터 제목 크기 축소 */
+    margin: 0 0 10px 0;
+    border-bottom: 1px solid #edf2f7;
+    padding-bottom: 8px;
 }
 
 .toc-card ul {
-    list-style-type: none; /* 기본 점(bullet) 없애기 */
+    list-style: none;
     padding: 0;
     margin: 0;
 }
 
 .toc-card li {
-    font-size: 0.95rem;
-    margin-bottom: 8px;
+    font-size: 0.9rem; /* 본문 텍스트 크기 축소 */
+    color: #4a5568;
+    margin-bottom: 6px; /* 줄 간격 축소 */
     line-height: 1.4;
-    color: #dcdcdc;
+    letter-spacing: -0.3px; /* 텍스트가 줄바꿈되지 않도록 자간 살짝 좁힘 */
     word-break: keep-all;
 }
 
 .toc-card li strong {
-    color: #ff9999; /* 번호 강조 */
-    margin-right: 5px;
+    color: #0056b3;
+    margin-right: 6px;
 }
 
-/* --- 본문 슬라이드(Slide 2) 전용 스타일 --- */
+/* --- 본문 슬라이드 1 (Slide 2) 전용 스타일 (라이트 테마) --- */
 
-/* 슬라이드를 가로로 넓게 사용 */
-.slide-container.full-width {
-    width: 85vw;
-    max-width: 1400px;
-    text-align: left;
+/* 가로를 넓게 쓰는 컨테이너 확장 */
+.full-width {
+    max-width: 1500px;
 }
 
-/* 제목 및 부제목 디자인 */
+/* 슬라이드 헤더 (깔끔한 밑줄과 정렬) */
 .slide-header {
+    text-align: left;
     margin-bottom: 30px;
-    border-bottom: 2px solid #555;
     padding-bottom: 15px;
+    border-bottom: 2px solid #e2e8f0;
 }
 
 .slide-header h2 {
     font-size: 2.2rem;
+    color: #111111;
     margin: 0 0 10px 0;
-    color: #ffffff;
+    font-weight: 800;
 }
 
 .slide-header .subtitle {
     font-size: 1.2rem;
-    color: #b3b3b3;
+    color: #4a5568;
     margin: 0;
+    font-weight: 500;
 }
 
-/* 60:40 좌우 분할 */
+/* 좌우 분할 레이아웃 */
 .content-split {
     display: flex;
     gap: 40px;
-    align-items: stretch; /* 좌우 높이를 맞춤 */
+    align-items: stretch;
 }
 
-/* 좌측 텍스트 패널 (60%) */
+/* 좌측 텍스트 영역 */
 .left-panel {
-    flex: 6; 
+    flex: 1.3;
     display: flex;
     flex-direction: column;
     gap: 25px;
 }
 
-.left-panel h3 {
-    font-size: 1.4rem;
-    color: #ffcc00; /* 노란색 계열 포인트 */
+.left-panel section h3 {
+    font-size: 1.3rem;
+    color: #0056b3;
     margin: 0 0 15px 0;
 }
 
 .left-panel ul {
-    padding-left: 20px;
+    list-style-type: disc;
+    padding-left: 25px;
     margin: 0;
 }
 
 .left-panel li {
-    font-size: 1.1rem;
-    line-height: 1.6;
+    font-size: 1.05rem;
+    color: #333333;
+    line-height: 1.7;
     margin-bottom: 12px;
-    color: #e0e0e0;
     word-break: keep-all;
 }
 
-/* 🎯 키워드 강조 스타일 (파란색, 크기 확대, 볼드) */
-.highlight {
-    color: #4da6ff;
-    font-size: 1.15em;
-    font-weight: bold;
+.left-panel li strong {
+    color: #0056b3; /* 메인 테마 블루 */
 }
 
-/* 우측 4대 핵심 축 패널 (40%) */
+/* 🎯 하이라이트 (과하지 않은 연한 블루 톤 형광펜 효과) */
+.highlight {
+    font-weight: 700;
+    color: #111111;
+    background: linear-gradient(180deg, transparent 60%, rgba(0, 86, 179, 0.15) 60%);
+    padding: 0 4px;
+}
+
+/* 우측 4대 핵심 축 (2x2 그리드) */
 .right-panel {
-    flex: 4; 
+    flex: 1;
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 2열 십자(+) 형태 배치 */
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
 }
 
+/* 개별 인포그래픽 박스 */
 .axis-box {
-    background-color: rgba(50, 50, 50, 0.8);
-    border: 2px solid #666;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
     border-radius: 12px;
-    padding: 25px 15px;
+    padding: 25px 20px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
-/* 마우스 호버 시 살짝 확대 및 테두리 색상 변경 */
+/* 마우스 오버 시 부드럽게 떠오르는 효과 */
 .axis-box:hover {
-    transform: scale(1.03);
-    border-color: #4da6ff;
-    box-shadow: 0 4px 15px rgba(77, 166, 255, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    border-color: #cbd5e1;
 }
 
 .axis-box h4 {
-    margin: 0 0 12px 0;
-    color: #ff9999; /* 붉은색 계열 포인트 */
-    font-size: 1.25rem;
-    text-align: center;
+    font-size: 1.15rem;
+    color: #0056b3;
+    margin: 0 0 10px 0;
+    font-weight: 700;
 }
 
 .axis-box p {
-    margin: 0;
     font-size: 0.95rem;
-    line-height: 1.4;
-    color: #cccccc;
-    text-align: center;
-    word-break: keep-all;
-}
-
-/* --- 본문 슬라이드 2 (Slide 3) 전용 스타일 --- */
-
-/* 3개의 기둥 레이아웃 */
-.pillars-wrapper {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 정확히 3등분 */
-    gap: 25px;
-    margin-top: 10px;
-}
-
-/* 개별 기둥 기본 스타일 */
-.pillar {
-    background-color: rgba(45, 45, 45, 0.7);
-    border-radius: 10px;
-    padding: 25px 20px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-/* 각 기둥 상단에 다른 포인트 컬러 적용 */
-.pillar-narrative { border-top: 5px solid #4da6ff; } /* 파랑 */
-.pillar-character { border-top: 5px solid #ffcc00; } /* 노랑 */
-.pillar-fan       { border-top: 5px solid #ff9999; } /* 빨강 */
-
-/* 아이콘 설정 */
-.pillar-icon {
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 15px;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
-}
-
-.pillar h3 {
-    font-size: 1.25rem;
-    color: #ffffff;
-    text-align: center;
-    margin: 0 0 20px 0;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #666;
-}
-
-.pillar ul {
-    padding-left: 15px;
+    color: #4a5568;
     margin: 0;
-}
-
-.pillar li {
-    font-size: 1.05rem;
     line-height: 1.5;
-    margin-bottom: 18px;
-    color: #cccccc;
     word-break: keep-all;
-    list-style-type: square;
 }
+/* --- 본문 슬라이드 2 (Slide 3) 전용 스타일 (라이트 테마) --- */
+/* --- 본문 슬라이드 2 (Slide 3) 전용 스타일 (라이트 테마 / 큰 이미지 버전) --- */
 
-.pillar li strong {
-    color: #ffffff;
-    display: inline-block;
-    margin-bottom: 4px;
-}
-
-/* 1990년대로 흘러가는 옅은 화살표 애니메이션 */
-.next-era-arrow {
-    text-align: center;
-    font-size: 2.5rem;
-    color: rgba(255, 255, 255, 0.2); /* 옅은 색상 적용 */
-    margin-top: 20px;
-    animation: floating 2s infinite ease-in-out; /* 위아래로 둥둥 뜨는 효과 */
-}
-
-@keyframes floating {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(10px); }
-    100% { transform: translateY(0); }
-}
-
-/* --- 본문 슬라이드 3 (Slide 4) 전용 스타일 --- */
-
-/* 1:1 좌우 분할 */
-.split-1-1 {
+.pillars-wrapper {
     display: flex;
-    gap: 30px;
+    gap: 25px;
     align-items: stretch;
 }
 
-.split-1-1 > div {
-    flex: 1; /* 정확히 50%씩 분할 */
+/* 3개의 기둥(카드) 디자인 */
+.pillar {
+    flex: 1;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
     border-radius: 12px;
-    padding: 30px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-.mb-20 {
-    margin-bottom: 25px;
-}
-
-/* 차분한 톤 박스 (좌측) */
-.calm-box {
-    background-color: rgba(30, 40, 50, 0.8);
-    border-left: 5px solid #4da6ff;
-}
-
-.calm-box h3 {
-    color: #4da6ff;
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.3rem;
-}
-
-/* 경고/강조 톤 박스 (우측) */
-.warning-box {
-    background-color: rgba(50, 30, 30, 0.8);
-    border-left: 5px solid #ff6666;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.warning-title {
-    color: #ff9999;
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.3rem;
+.pillar:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
 }
 
-.split-1-1 ul {
+.pillar-narrative { border-top: 5px solid #0056b3; } 
+.pillar-character { border-top: 5px solid #d97706; } 
+.pillar-fan { border-top: 5px solid #059669; }       
+
+.pillar h3 {
+    font-size: 1.1rem;
+    color: #111111;
+    text-align: center;
+    margin: 0 0 15px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #edf2f7;
+}
+
+/* 🎯 텍스트와 이미지 리스트 레이아웃 (수직 배치) */
+.info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: 100%;
+}
+
+.info-item-vert {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+/* 🎯 단일 이미지 (아톰, 데빌맨) - 비율 유지 및 잘림 방지 */
+.item-img-large {
+    width: 100%;
+    height: 160px; /* 높이를 충분히 주어 세로 표지가 잘리지 않게 함 */
+    object-fit: contain; /* 이미지를 자르지 않고 원본 비율 그대로 축소/확대 */
+    object-position: center; /* 중앙 정렬 */
+    border-radius: 4px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15)); /* 테두리 대신 깔끔한 책 그림자 효과 */
+}
+
+/* 🎯 다중 이미지 가로 배치 (시끌별, 마크로스) */
+.img-row-half {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+}
+
+.item-img-half {
+    width: 48%; /* 반씩 차지하도록 설정 */
+    height: 140px; 
+    object-fit: contain; 
+    object-position: center;
+    border-radius: 4px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+/* 텍스트 설명 (요약형) */
+.item-desc {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #4a5568;
+    word-break: keep-all;
+}
+
+.item-desc strong {
+    color: #1e293b;
+    font-size: 0.95rem;
+    display: block;
+    margin-bottom: 3px;
+}
+
+/* 기둥 3(팬 참여) 전용 여백 및 아이콘 설정 */
+.mt-10 { margin-top: 10px; }
+.no-img-pad { margin-top: 20px; }
+.center-text { text-align: center; }
+.border-top-pt { 
+    margin-top: 15px; 
+    padding-top: 15px; 
+    border-top: 1px dashed #cbd5e1; 
+}
+.pillar-icon-large {
+    font-size: 3.5rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* --- 본문 슬라이드 3 (Slide 4) 전용 스타일 (라이트 테마 / 콤팩트 버전) --- */
+
+/* 좌우 1:1 분할 */
+.split-1-1 {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+    height: calc(100% - 80px); /* 헤더 영역을 제외한 나머지 높이 사용 */
+}
+
+/* 차분한 좌측 패널 (밝은 파스텔 블루/그레이) */
+.calm-box {
+    flex: 1;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px 25px; /* 상하 여백 축소 */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+/* 경고/주의 우측 패널 (밝은 파스텔 레드/오렌지) */
+.warning-box {
+    flex: 1;
+    background-color: #fffaf0;
+    border: 1px solid #feebc8;
+    border-radius: 12px;
+    padding: 20px 25px; /* 상하 여백 축소 */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+}
+
+.calm-box h3, .warning-box h3 {
+    font-size: 1.15rem;
+    margin: 0 0 10px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.calm-box h3 { color: #0056b3; }
+.warning-title { color: #c53030 !important; }
+
+/* 리스트 스타일 콤팩트화 */
+.calm-box ul, .warning-box ul {
     padding-left: 20px;
     margin: 0;
 }
 
-.split-1-1 li {
-    font-size: 1.05rem;
-    line-height: 1.6;
-    margin-bottom: 12px;
-    color: #e0e0e0;
+.calm-box li, .warning-box li {
+    font-size: 0.95rem;
+    color: #334155;
+    line-height: 1.4;
+    margin-bottom: 8px; /* 리스트 간격 축소 */
     word-break: keep-all;
 }
 
-/* 플로우차트 인포그래픽 디자인 */
+.mb-15 { margin-bottom: 15px; }
+
+/* 🎯 플로우차트 인포그래픽 (공간 절약형) */
 .flowchart {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
     border-radius: 8px;
     padding: 15px;
-    margin-top: 20px;
+    margin-top: 15px; /* 남는 공간 활용 */
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
 }
 
 .flow-row {
     display: flex;
-    align-items: center;
     justify-content: center;
-    text-align: center;
+    align-items: center;
+    gap: 8px;
 }
 
 .flow-node {
-    background-color: #444;
-    padding: 10px 15px;
+    padding: 8px 12px;
     border-radius: 6px;
-    font-size: 0.95rem;
-    color: #fff;
-    min-width: 100px;
+    text-align: center;
+    font-size: 0.85rem;
+    line-height: 1.3;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
+.text-sm {
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+/* 플로우차트 색상 (라이트 테마 파스텔톤) */
+.node-gray { background-color: #f1f5f9; color: #64748b; border: 1px solid #cbd5e1; }
+.bg-blue { background-color: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+.bg-green { background-color: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+.bg-purple { background-color: #f3e8ff; color: #7e22ce; border: 1px solid #e9d5ff; }
+
+/* 플로우차트 화살표 및 구분자 */
 .flow-arrow {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #888;
-    margin: 0 10px;
     font-size: 1.2rem;
-}
-
-/* 잘못된 인과 관계 경로 */
-.wrong-path {
-    opacity: 0.6;
+    color: #94a3b8;
 }
 
 .x-mark {
-    color: #ff4444;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
+    color: #ef4444;
     font-weight: bold;
     margin-bottom: -5px;
 }
 
+.correct-arrow { color: #0056b3; font-weight: bold; }
+
 .flow-divider {
     text-align: center;
-    font-size: 0.85rem;
-    color: #ffcc00;
-    margin: 15px 0;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin: 10px 0;
     font-weight: bold;
 }
 
-/* 올바른 매개 경로 */
-.bg-blue { border: 1px solid #4da6ff; background-color: rgba(77, 166, 255, 0.2); }
-.bg-green { border: 1px solid #4dff4d; background-color: rgba(77, 255, 77, 0.2); }
-.bg-purple { border: 1px solid #d24dff; background-color: rgba(210, 77, 255, 0.2); }
+/* --- 본문 슬라이드 4 (Slide 5) 전용 스타일 (라이트 테마 / 이미지 추가 버전) --- */
 
-.correct-arrow {
-    color: #4dff4d;
-    font-weight: bold;
-}
-
-/* --- 본문 슬라이드 4 (Slide 5) 전용 스타일 --- */
-
-/* 3분할 레이아웃 */
 .three-columns {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
+    display: flex;
+    gap: 20px;
     align-items: stretch;
+    height: calc(100% - 80px); /* 공간 최적화 */
 }
 
-/* 개별 작품 카드 */
 .work-card {
-    background-color: rgba(40, 40, 45, 0.9);
+    flex: 1;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
     border-radius: 12px;
-    padding: 25px 20px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
     display: flex;
     flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* 작품별 상단 포인트 컬러 */
-.card-sailormoon { border-top: 5px solid #ff66b2; } /* 핑크 */
-.card-utena { border-top: 5px solid #cc66ff; }      /* 보라 */
-.card-eva { border-top: 5px solid #99ff33; }        /* 형광 연두 */
+.work-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* 🎯 테마별 상단 포인트 라인 (세일러문:핑크, 우테나:보라, 에바:초록) */
+.card-sailormoon { border-top: 5px solid #ec4899; }
+.card-utena { border-top: 5px solid #a855f7; }
+.card-eva { border-top: 5px solid #10b981; }
+
+/* 🎯 추가된 이미지 스타일 */
+/* 🎯 추가된 이미지 스타일 (크기 확대) */
+.work-img {
+    width: 100%;
+    height: 250px; /* 기존 140px에서 190px로 대폭 키움 */
+    object-fit: contain; 
+    object-position: center;
+    margin-bottom: 20px; /* 사진과 아래 제목 사이의 여백을 늘려 글을 살짝 내림 */
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
 
 .work-title {
-    font-size: 1.25rem;
-    color: #ffffff;
-    margin: 0 0 20px 0;
+    font-size: 1.1rem;
+    color: #1e293b;
     text-align: center;
+    margin: 0 0 12px 0;
+    font-weight: 800;
 }
 
-.year {
-    color: #aaaaaa;
-    font-size: 1rem;
+.work-title .year {
+    font-size: 0.85rem;
+    color: #64748b;
     font-weight: normal;
 }
 
-/* 도식화 박스 (고정관념 -> 재해석) */
+/* 🎯 도식화 박스 스타일 */
 .concept-shift {
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 8px;
-    padding: 15px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    justify-content: center;
+    gap: 10px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.old-concept, .new-concept {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: center;
 }
 
 .old-concept {
-    color: #888888;
-    text-decoration: line-through; /* 옛 개념 취소선 */
-    font-size: 0.95rem;
-    flex: 1;
-    text-align: center;
+    color: #94a3b8;
+    text-decoration: line-through; /* 옛날 방식은 취소선 처리 */
 }
+
+/* 작품별 도식화 강조 색상 적용 */
+.card-sailormoon .new-concept { color: #ec4899; }
+.card-utena .new-concept { color: #a855f7; }
+.card-eva .new-concept { color: #10b981; }
 
 .shift-arrow {
-    color: #4da6ff;
-    font-size: 1.2rem;
+    color: #cbd5e1;
     font-weight: bold;
-    margin: 0 10px;
+    font-size: 1.1rem;
 }
 
-.new-concept {
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 1.05rem;
-    flex: 1;
-    text-align: center;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-}
-
+/* 리스트 스타일 */
 .work-card ul {
-    padding-left: 15px;
-    margin: 0;
-}
-
-.work-card li {
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 15px;
-    color: #dcdcdc;
-    word-break: keep-all;
-}
-
-/* 🎯 형광펜 하이라이트 효과 */
-.highlight-pen {
-    font-weight: bold;
-    color: #ffffff;
-    /* 노란색 형광펜을 그은 듯한 그라데이션 배경 (텍스트 하단 절반만 칠해짐) */
-    background: linear-gradient(transparent 50%, rgba(255, 215, 0, 0.6) 50%);
-    padding: 0 2px;
-}
-
-/* --- 본문 슬라이드 5 (Slide 6) 전용 스타일 --- */
-
-/* 더 어두운 하드보일드 톤 배경 (Noir Theme) */
-.noir-theme {
-    background-color: #0a0a0a !important; /* 거의 완전한 블랙에 가까운 다크 그레이 */
-    border: 1px solid #222;
-    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.8);
-}
-
-.noir-title {
-    color: #e6e6e6 !important;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-}
-
-.noir-subtitle {
-    color: #888 !important;
-}
-
-/* 세로형 포스터 3분할 레이아웃 */
-.poster-layout {
-    display: flex;
-    gap: 30px;
-    align-items: stretch;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-/* 개별 포스터 카드 디자인 (필름 컷 느낌) */
-.poster-card {
-    flex: 1;
-    background-color: #141414;
-    border: 2px solid #333;
-    border-radius: 4px;
-    padding: 30px 20px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    /* 상하단에 필름 구멍 같은 점선 효과 적용 */
-    background-image: 
-        linear-gradient(90deg, transparent 50%, #000 50%),
-        linear-gradient(90deg, transparent 50%, #000 50%);
-    background-size: 20px 4px;
-    background-repeat: repeat-x;
-    background-position: top, bottom;
-    box-shadow: 10px 10px 20px rgba(0,0,0,0.5);
-    transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.poster-card:hover {
-    transform: translateY(-10px);
-    border-color: #666;
-}
-
-/* 작품별 고유한 테마 라인 컬러 */
-.card-ghost::before { content: ""; position: absolute; top: 15px; left: 0; width: 100%; height: 2px; background: #00ffff; opacity: 0.5; }
-.card-bebop::before { content: ""; position: absolute; top: 15px; left: 0; width: 100%; height: 2px; background: #ff4500; opacity: 0.5; }
-.card-berserk::before { content: ""; position: absolute; top: 15px; left: 0; width: 100%; height: 2px; background: #8b0000; opacity: 0.5; }
-
-.poster-title {
-    font-size: 1.3rem;
-    color: #ffffff;
-    margin: 10px 0 5px 0;
-    text-align: center;
-    line-height: 1.3;
-}
-
-.poster-title .year {
-    font-size: 0.9rem;
-    color: #777;
-}
-
-.poster-genre {
-    text-align: center;
-    font-size: 0.95rem;
-    color: #999;
-    margin-bottom: 25px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #333;
-}
-
-.poster-card ul {
-    padding-left: 15px;
-    margin: 0;
-}
-
-.poster-card li {
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    color: #bfbfbf;
-    word-break: keep-all;
-}
-
-/* 🎯 철학적 키워드 강조 (빛나는 텍스트 효과) */
-.glow-keyword {
-    color: #ffffff;
-    font-weight: bold;
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 15px rgba(200, 200, 200, 0.5);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-/* --- 본문 슬라이드 6 (Slide 7) 전용 스타일 --- */
-
-/* 3열 다이어그램 레이아웃 */
-.interaction-layout {
-    display: grid;
-    grid-template-columns: 1fr 250px 1fr; /* 좌측, 중앙(다이어그램), 우측 */
-    grid-template-rows: auto auto auto;
-    gap: 10px 30px;
-    align-items: center;
-}
-
-/* 그리드 배치 지정 */
-.tokimeki { grid-column: 1; grid-row: 1; }
-.vertical-connector { grid-column: 1; grid-row: 2; }
-.toheart { grid-column: 1; grid-row: 3; }
-.center-core { grid-column: 2; grid-row: 1 / span 3; justify-self: center; }
-.angelique { grid-column: 3; grid-row: 1 / span 3; } /* 우측 중앙 정렬 */
-
-/* 개별 게임 카드 디자인 */
-.game-card {
-    background-color: rgba(45, 50, 60, 0.8);
-    border-radius: 10px;
-    padding: 20px;
-    border-left: 4px solid #4da6ff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.game-card h3 {
-    margin: 0 0 10px 0;
-    color: #ffffff;
-    font-size: 1.2rem;
-}
-
-.genre-tag {
-    display: inline-block;
-    background-color: #2b4a6f;
-    color: #b3d9ff;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    margin-bottom: 15px;
-}
-
-.game-card ul {
     padding-left: 20px;
     margin: 0;
 }
 
-.game-card li {
-    font-size: 0.95rem;
-    line-height: 1.5;
+.work-card li {
+    font-size: 0.9rem;
+    color: #334155;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    word-break: keep-all;
+    letter-spacing: -0.3px;
+}
+
+/* 🎯 형광펜 하이라이트 (깔끔한 옐로우) */
+.highlight-pen {
+    font-weight: 700;
+    color: #111111;
+    background: linear-gradient(180deg, transparent 60%, rgba(250, 204, 21, 0.4) 60%);
+    padding: 0 2px;
+}
+
+/* --- 본문 슬라이드 5 (Slide 6) 전용 스타일 (라이트 테마 / 포스터 추가) --- */
+
+.poster-card {
+    flex: 1;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.poster-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* 🎯 작품별 상단 포인트 라인 색상 (사이버펑크 블루, 하드보일드 오렌지, 다크레드) */
+.card-ghost { border-top: 5px solid #0891b2; }
+.card-bebop { border-top: 5px solid #b45309; }
+.card-berserk { border-top: 5px solid #be123c; }
+
+/* 🎯 추가된 포스터 이미지 스타일 */
+.poster-img {
+    width: 100%;
+    height: 220px; /* 앞 슬라이드와 비슷한 큼직한 크기 유지 */
+    object-fit: contain; /* 세로 포스터가 잘리지 않음 */
+    object-position: center;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+}
+
+.poster-title {
+    font-size: 1.1rem;
+    color: #1e293b;
+    text-align: center;
+    margin: 0 0 10px 0;
+    font-weight: 800;
+}
+
+.poster-title .year {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: normal;
+    display: block;
+    margin-top: 4px;
+}
+
+/* 🎯 장르 태그 (파스텔톤 뱃지 스타일로 깔끔하게 변경) */
+.poster-genre {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 6px 0;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    border: 1px solid #e2e8f0;
+}
+
+/* 뱃지 배경색과 글씨색 작품별 매칭 */
+.card-ghost .poster-genre { color: #0891b2; background-color: #ecfeff; border-color: #cffafe; }
+.card-bebop .poster-genre { color: #b45309; background-color: #fff7ed; border-color: #ffedd5; }
+.card-berserk .poster-genre { color: #be123c; background-color: #fff1f2; border-color: #ffe4e6; }
+
+.poster-card ul {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.poster-card li {
+    font-size: 0.9rem;
+    color: #334155;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    word-break: keep-all;
+    letter-spacing: -0.3px;
+}
+
+/* 깔끔한 노란색 형광펜 효과 */
+.light-keyword {
+    font-weight: 700;
+    color: #111111;
+    background: linear-gradient(180deg, transparent 60%, rgba(250, 204, 21, 0.4) 60%);
+    padding: 0 2px;
+}
+
+/* --- 본문 슬라이드 6 (Slide 7) 전용 스타일 (라이트 테마 / 2x2 그리드) --- */
+
+.game-grid-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2열 */
+    grid-template-rows: 1fr 1fr;    /* 2행 */
+    gap: 25px;
+    height: calc(100% - 80px);      /* 헤더를 제외한 영역 꽉 채우기 */
+}
+
+/* 가로형 카드 디자인 (공간 절약) */
+.game-card {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 15px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    display: flex; /* 이미지와 텍스트를 가로로 배치 */
+    gap: 20px;
+    align-items: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.06);
+}
+
+/* 카드 좌측 컬러 바 */
+.card-tokimeki { border-left: 5px solid #ec4899; }
+.card-angelique { border-left: 5px solid #d97706; }
+.card-toheart { border-left: 5px solid #3b82f6; }
+
+/* 🎯 이미지 스타일 (세로로 긴 게임 패키지 최적화) */
+.game-img {
+    width: 105px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 6px;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.15));
+    flex-shrink: 0;
+}
+
+/* 텍스트 영역 */
+.game-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.game-info h3 {
+    font-size: 1.1rem;
+    color: #1e293b;
+    margin: 0 0 6px 0;
+}
+
+.game-info .year {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: normal;
+}
+
+/* 🎯 장르 뱃지 (파스텔톤) */
+.genre-tag {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 4px;
     margin-bottom: 10px;
-    color: #dcdcdc;
+    align-self: flex-start;
+}
+
+.tag-pink { background: #fdf2f8; color: #db2777; border: 1px solid #fbcfe8; }
+.tag-gold { background: #fffbeb; color: #b45309; border: 1px solid #fef08a; }
+.tag-blue { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+
+.game-info ul {
+    padding-left: 18px;
+    margin: 0;
+}
+
+.game-info li {
+    font-size: 0.85rem;
+    color: #475569;
+    line-height: 1.4;
+    margin-bottom: 6px;
     word-break: keep-all;
 }
 
-/* 🎯 핵심 키워드 강조 (밑줄 및 굵기) */
+/* 깔끔한 옐로우 형광펜 */
 .game-kw {
     font-weight: bold;
-    color: #ffcc00;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    text-decoration-thickness: 2px;
+    color: #0f172a;
+    background: linear-gradient(180deg, transparent 60%, rgba(250, 204, 21, 0.4) 60%);
+    padding: 0 2px;
 }
 
-/* 중앙 상호작용 노드 (플레이어 ↔ 캐릭터) */
-.center-core {
+/* 🎯 두근두근 메모리얼 -> 투하트 연결 뱃지 */
+.relative-box { position: relative; }
+
+.connector-badge {
+    position: absolute;
+    top: -14px;
+    left: 20px;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid #cbd5e1;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* 🎯 우측 하단: 상호작용 개념도 */
+.concept-core-box {
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    border: 1px dashed #cbd5e1;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 2px dashed #ff9999;
-    border-radius: 50%;
-    width: 220px;
-    height: 220px;
-    text-align: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.core-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #334155;
+    margin-bottom: 20px;
+}
+
+.interaction-flow {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .entity {
-    font-size: 1.2rem;
+    background: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-align: center;
     font-weight: bold;
-    color: #ffffff;
-    padding: 5px 15px;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
+    font-size: 1rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.player-entity { border-top: 4px solid #3b82f6; color: #1e3a8a; }
+.character-entity { border-top: 4px solid #ec4899; color: #831843; }
+
+.entity-sub {
+    font-size: 0.75rem;
+    color: #64748b;
+    font-weight: normal;
+    margin-top: 4px;
+    display: block;
 }
 
 .interaction-arrow {
-    margin: 15px 0;
-    color: #ff9999;
-}
-
-.arrow-icon {
-    font-size: 2rem;
-    line-height: 1;
-}
-
-/* 세로 점선 커넥터 (두근두근 메모리얼 -> 투하트) */
-.vertical-connector {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 60px;
 }
 
-.dashed-line {
-    width: 0;
-    height: 20px;
-    border-left: 3px dashed #4da6ff;
-    flex-grow: 1;
-}
-
-.connector-label {
-    background-color: #4da6ff;
-    color: #000;
-    font-weight: bold;
-    font-size: 0.85rem;
-    padding: 3px 10px;
-    border-radius: 12px;
-    margin: 5px 0;
-}
-
-.arrow-down {
-    color: #4da6ff;
-    font-size: 1rem;
+.arrow-icon {
+    font-size: 2.2rem;
     line-height: 1;
+    margin-bottom: 5px;
+    color: #94a3b8;
 }
-/* --- 본문 슬라이드 7 (Slide 8) 전용 스타일 --- */
 
-/* 미디어 믹스 좌우 분할 */
+/* --- 본문 슬라이드 7 (Slide 8) 전용 스타일 (라이트 테마 / 미디어 믹스 다이어그램) --- */
+
 .media-mix-layout {
     display: flex;
-    align-items: center;
-    gap: 50px;
+    gap: 30px;
+    align-items: stretch;
+    height: calc(100% - 80px); /* 화면 스크롤 방지 */
 }
 
-.media-mix-layout .text-panel {
-    flex: 1.2;
+/* 좌측 텍스트 패널 */
+.mm-text {
+    flex: 1.1;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 25px 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-/* 🎯 핵심 키워드 강조 (배경색과 굵기) */
+.mm-text h3 {
+    font-size: 1.2rem;
+    color: #1e293b;
+    margin: 0 0 12px 0;
+    border-left: 4px solid #facc15; /* 포켓몬 옐로우 포인트 */
+    padding-left: 10px;
+}
+
+.mm-text ul {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.mm-text li {
+    font-size: 1rem;
+    color: #334155;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    word-break: keep-all;
+}
+
+.mb-20 { margin-bottom: 20px; }
+
+/* 🎯 포켓몬 옐로우 형광펜 */
 .highlight-ip {
-    font-weight: bold;
-    color: #ffcc00;
-    font-size: 1.05em;
-    background: rgba(255, 204, 0, 0.2);
-    padding: 2px 8px;
-    border-radius: 4px;
-    border-bottom: 2px solid #ffcc00;
+    font-weight: 700;
+    color: #0f172a;
+    background: linear-gradient(180deg, transparent 60%, rgba(250, 204, 21, 0.5) 60%);
+    padding: 0 3px;
 }
 
-/* IP 다이어그램 패널 */
-.diagram-panel {
+/* 🎯 우측 수직 정렬 패널 (애니메이션/순환 궤도 제거 버전) */
+.vertical-media-panel {
     flex: 1;
-    position: relative;
-    width: 400px;
-    height: 400px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    gap: 30px; /* 구역 간 여백 */
+}
+
+/* [상단] 포켓몬 메인 이미지 */
+.media-top {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
 }
 
-/* 회전하는 순환 점선 궤도 */
-.cycle-ring {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    border: 4px dashed #4da6ff;
-    border-radius: 50%;
-    animation: spin-orbit 15s linear infinite; /* 15초마다 한 바퀴 회전 */
-    opacity: 0.6;
+.pokemon-main-img {
+    max-width: 360px; /* 기존보다 큼직하게 배치 */
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.15));
 }
 
-@keyframes spin-orbit {
-    100% { transform: rotate(360deg); }
-}
-
-/* 중앙 원천 IP 코어 */
-.center-ip {
-    position: relative;
-    z-index: 10;
-    background: radial-gradient(circle, #ffcc00, #ff8800);
-    color: #000;
-    font-weight: bold;
-    padding: 30px 20px;
-    border-radius: 50%;
-    text-align: center;
-    box-shadow: 0 0 25px rgba(255, 204, 0, 0.5);
-    font-size: 1.3rem;
-    line-height: 1.4;
-}
-
-.center-ip span {
-    font-size: 0.85rem;
-    font-weight: normal;
-    color: #333;
-}
-
-/* 궤도 위의 4개 노드 */
-.orbit-node {
-    position: absolute;
-    background-color: #2b2b2b;
-    color: #ffffff;
-    border: 2px solid #4da6ff;
-    padding: 12px 18px;
-    border-radius: 30px;
-    font-weight: bold;
-    font-size: 1rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    z-index: 15;
-    white-space: nowrap;
-}
-
-/* 상하좌우 정밀 배치 (컨테이너 중앙 기준) */
-.node-top { top: 0; left: 50%; transform: translateX(-50%); }
-.node-right { top: 50%; right: -25px; transform: translateY(-50%); }
-.node-bottom { bottom: 0; left: 50%; transform: translateX(-50%); }
-.node-left { top: 50%; left: -25px; transform: translateY(-50%); }
-
-/* --- 본문 슬라이드 8 (Slide 9) 전용 스타일 --- */
-
-/* 상단 좌우 분할 */
-.split-layout {
+/* [중단] 미디어 믹스 키워드 뱃지 모음 */
+.media-keywords {
     display: flex;
-    gap: 40px;
-    margin-bottom: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.kw-badge {
+    background-color: #ffffff;
+    border: 2px solid #e2e8f0;
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #334155;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+/* [하단] 캐릭터 3마리 나란히 배치 */
+/* [하단] 캐릭터 3마리 나란히 배치 */
+.media-characters {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 15px; /* 간격이 너무 넓으면 패널을 뚫고 나가므로 유연하게 축소 */
+    width: 100%; /* 부모 패널 밖으로 튀어나가지 않도록 제한 */
+    margin-top: 20px;
+}
+
+/* 🎯 투명 배경 캐릭터 3인방 공통 스타일 (반응형 크기) */
+.trans-char {
+    width: 30%; /* 고정 px 대신, 우측 패널 가로 너비의 30%씩 나눠 가지도록 설정 */
+    max-width: 160px; /* 최대로 커질 수 있는 한계치 설정 */
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 6px 10px rgba(0,0,0,0.15));
+    transition: transform 0.2s ease;
+}
+
+.trans-char:hover {
+    transform: translateY(-5px);
+}
+
+/* --- 본문 슬라이드 8 (Slide 9) 전용 스타일 (라이트 테마 / 모에 데이터베이스) --- */
+/* --- 본문 슬라이드 8 (Slide 9) 전용 스타일 (통합 및 사진 확대 버전) --- */
+
+.full-height-split {
+    display: flex;
+    gap: 30px;
+    height: calc(100% - 80px); /* 화면을 아래까지 꽉 채움 */
 }
 
 .text-section {
-    flex: 1.2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .text-section h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    color: #4da6ff;
-    font-size: 1.25rem;
+    font-size: 1.15rem;
+    color: #0056b3;
+    margin: 0 0 10px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding-bottom: 8px;
 }
 
 .text-section ul {
@@ -903,240 +970,225 @@ body {
 }
 
 .text-section li {
-    font-size: 1.05rem;
-    line-height: 1.6;
-    margin-bottom: 10px;
-    color: #e0e0e0;
+    font-size: 0.95rem;
+    color: #334155;
+    line-height: 1.5;
+    margin-bottom: 8px;
     word-break: keep-all;
 }
 
-/* 우측 인포그래픽 패널 */
-.visual-section {
-    flex: 1;
+.mt-20 { margin-top: 20px; }
+
+/* 🎯 좌측으로 통합된 3번 강조 섹션 (부드러운 레드 박스) */
+.highlight-section {
+    background-color: #fff1f2;
+    border: 1px solid #fecaca;
+    border-left: 5px solid #ef4444;
+    border-radius: 8px;
+    padding: 15px 20px;
+}
+
+.highlight-section h3.no-title {
+    font-size: 1.1rem;
+    color: #991b1b;
+    margin: 0 0 10px 0;
+    border-bottom: none;
+    padding-bottom: 0;
     display: flex;
     align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.4);
-    border-radius: 12px;
-    padding: 20px;
-    border: 1px dashed #666;
+    gap: 10px;
 }
 
-.db-infographic {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-/* 데이터베이스 서랍장 디자인 */
-.db-server {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    background: #4da6ff;
-    padding: 15px 12px;
-    border-radius: 8px;
-    box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
-}
-
-.drawer {
-    width: 60px;
-    height: 15px;
-    background: #1a1a1a;
-    border-radius: 3px;
-    position: relative;
-}
-
-.drawer::after {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 4px;
-    background: #888;
-    top: 5px;
-    left: 20px;
-    border-radius: 2px;
-}
-
-.db-label {
-    margin-top: 10px;
-    font-size: 0.8rem;
-    color: #fff;
-    font-weight: bold;
-    text-align: center;
-}
-
-/* 흐름 화살표 애니메이션 */
-.db-arrow {
-    font-size: 2rem;
-    color: #888;
-    animation: move-arrow 1.5s infinite ease-in-out;
-}
-
-@keyframes move-arrow {
-    0% { transform: translateX(0); }
-    50% { transform: translateX(8px); }
-    100% { transform: translateX(0); }
-}
-
-/* 모에 속성 태그들 */
-.moe-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    width: 140px;
-    justify-content: center;
-}
-
-.m-tag {
-    background: #ff66b2;
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 0.85rem;
-    font-weight: bold;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-}
-
-/* 조립된 캐릭터 실루엣 */
-.char-result {
-    text-align: center;
-}
-
-.silhouette {
-    font-size: 4rem;
-    line-height: 1;
-    filter: drop-shadow(0 0 15px rgba(255, 204, 0, 0.7));
-}
-
-.char-label {
-    font-size: 0.9rem;
-    color: #ffcc00;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-/* 🎯 3번 핵심 강조 박스 (NO 강조) */
-.strong-emphasis-box {
-    background: linear-gradient(135deg, rgba(180, 20, 20, 0.9), rgba(80, 10, 10, 0.9));
-    border-left: 10px solid #ff3333;
-    border-radius: 8px;
-    padding: 25px 30px;
-    text-align: center;
-    box-shadow: 0 8px 20px rgba(255, 0, 0, 0.4);
-}
-
-.no-title {
-    font-size: 1.6rem;
-    color: #ffffff;
-    margin: 0 0 15px 0;
+.highlight-section li {
+    color: #450a0a;
 }
 
 .big-no {
-    font-size: 2.8rem;
-    color: #ffcc00; /* 붉은색 대비 노란색 */
+    font-size: 1.2rem;
     font-weight: 900;
-    vertical-align: middle;
-    margin-left: 15px;
-    text-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+    color: #dc2626;
+    background: #ffffff;
+    padding: 2px 8px;
+    border-radius: 6px;
+    border: 2px solid #dc2626;
 }
 
-.strong-emphasis-box p {
-    color: #f2f2f2;
-    font-size: 1.1rem;
-    margin: 8px 0;
-    word-break: keep-all;
-    line-height: 1.5;
+/* 🎯 우측 시각 자료 (공간 전체를 사용하여 사진 확대) */
+.expanded-visual {
+    flex: 1;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.02);
+    display: flex;
+    flex-direction: column;
 }
 
-.strong-emphasis-box strong {
-    color: #ffcc00;
+.db-title {
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #64748b;
+    margin-bottom: 15px;
 }
 
-/* --- 본문 슬라이드 9 (Slide 10) 전용 스타일 --- */
+.expanded-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 15px;
+}
 
-/* 좌우 이분할 테마 레이아웃 */
+/* 개별 속성 카드 */
+.moe-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    transition: transform 0.2s;
+}
+
+.moe-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+}
+
+/* 🎯 크기가 대폭 커진 캐릭터 이미지 */
+.moe-img-large {
+    width: 100%;
+    height: 100%;
+    max-height: 160px; /* 기존 100px -> 190px로 2배 가까이 확대 */
+    object-fit: contain;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    flex: 1; /* 남는 공간을 모두 이미지가 차지하게 함 */
+}
+
+/* 속성 뱃지 스타일 유지 */
+.moe-tag {
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 15px;
+}
+
+.tag-tsundere { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+.tag-megane { background: #e0e7ff; color: #4338ca; border: 1px solid #c7d2fe; }
+.tag-osana { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+.tag-maid { background: #f3e8ff; color: #7e22ce; border: 1px solid #e9d5ff; }
+
+/* --- 본문 슬라이드 9 (Slide 10) 전용 스타일 (라이트 테마 / 비주얼 노벨) --- */
+/* --- 본문 슬라이드 9 (Slide 10) 전용 스타일 (라이트 테마 / 비주얼 노벨) --- */
+
+/* 🎯 1단계: 컨테이너 (기준점) */
+.video-slide {
+    position: relative;
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+}
+
+/* 🎯 2단계: 영상 (컨테이너 배경 바로 위) */
+.slide-video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.2; /* 투명도 0.2 (필요시 조절) */
+    z-index: 1; /* -1에서 1로 변경하여 body 배경에 먹히지 않게 구출 */
+    pointer-events: none;
+    
+}
+
+/* 🎯 3단계: 콘텐츠 (영상보다 위) */
+.content-front {
+    position: relative;
+    z-index: 10; /* 영상(1)보다 확실하게 위로 배치 */
+}
+
+/* 좌우 분할 카드 레이아웃 (세로 넘침 방지) */
 .vn-layout {
     display: flex;
-    gap: 30px;
-    margin-bottom: 25px;
-    align-items: stretch;
+    gap: 20px;
+    flex: 1; /* 남는 공간을 자연스럽게 채움 (고정 높이 제거) */
+    margin-bottom: 20px;
+    min-height: 0;
 }
 
 .vn-card {
     flex: 1;
+    background-color: rgba(255, 255, 255, 0.92); /* 배경 영상이 살짝 비치도록 반투명 화이트 적용 */
+    border: 1px solid #e2e8f0;
     border-radius: 12px;
-    padding: 25px 20px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+    padding: 15px 20px; /* 상하 여백을 줄여 공간 확보 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
 }
 
-/* Key 계열: 따뜻한 오렌지/파스텔 톤 */
-.key-theme {
-    background: linear-gradient(135deg, rgba(255, 140, 0, 0.15), rgba(255, 200, 100, 0.05));
-    border-top: 5px solid #ff9933;
-    border-left: 1px solid rgba(255, 153, 51, 0.3);
-}
+.key-theme { border-top: 5px solid #f59e0b; } 
+.typemoon-theme { border-top: 5px solid #1e3a8a; } 
 
-.key-theme h3 {
-    color: #ffcc66;
-    margin-top: 0;
-    margin-bottom: 10px;
-}
-
-.key-theme .vn-games {
-    color: #ffaa00;
-}
-
-/* TYPE-MOON 계열: 다크 블루/레드 톤 */
-.typemoon-theme {
-    background: linear-gradient(135deg, rgba(0, 20, 60, 0.4), rgba(80, 0, 0, 0.4));
-    border-top: 5px solid #cc0000;
-    border-right: 1px solid rgba(204, 0, 0, 0.3);
-}
-
-.typemoon-theme h3 {
-    color: #ff6666;
-    margin-top: 0;
-    margin-bottom: 10px;
-}
-
-.typemoon-theme .vn-games {
-    color: #4da6ff;
+.vn-card h3 {
+    font-size: 1.1rem;
+    color: #1e293b;
+    margin: 0 0 5px 0;
 }
 
 .vn-games {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    color: #64748b;
     font-weight: bold;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+    margin-bottom: 12px;
+}
+
+/* 사진 2장 가로 배치 */
+.vn-img-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 12px;
+    justify-content: center;
+}
+
+.vn-img {
+    width: 48%;
+    height: 180px; /* 🎯 사진이 너무 커서 아래가 잘리는 현상 방지 (크기 제한) */
+    object-fit: cover; 
+    object-position: center top; 
+    border-radius: 6px;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
 }
 
 .vn-card ul {
-    padding-left: 15px;
+    padding-left: 20px;
     margin: 0;
 }
 
 .vn-card li {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #e0e0e0;
-    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: #334155;
+    line-height: 1.4;
     word-break: keep-all;
 }
 
-/* 하단 시너지 섹션 (텍스트 + 무한대 기호) */
+/* 하단 시너지 섹션 */
 .synergy-section {
+    background-color: rgba(248, 250, 252, 0.92); /* 반투명 */
+    border: 1px dashed #cbd5e1;
+    border-radius: 12px;
+    padding: 15px 20px; /* 공간 확보 */
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background-color: rgba(40, 40, 40, 0.6);
-    border: 1px solid #555;
-    border-radius: 10px;
-    padding: 20px 30px;
-    gap: 30px;
+    justify-content: space-between;
+    gap: 20px;
 }
 
 .synergy-text {
@@ -1144,8 +1196,9 @@ body {
 }
 
 .synergy-text h3 {
-    color: #ffffff;
-    margin: 0 0 10px 0;
+    font-size: 1.05rem;
+    color: #0056b3;
+    margin: 0 0 8px 0;
 }
 
 .synergy-text ul {
@@ -1154,1888 +1207,38 @@ body {
 }
 
 .synergy-text li {
-    font-size: 1rem;
-    color: #cccccc;
-    margin-bottom: 8px;
-    line-height: 1.5;
-    word-break: keep-all;
+    font-size: 0.9rem;
+    color: #475569;
+    line-height: 1.4;
+    margin-bottom: 4px;
 }
 
-.synergy-text strong {
-    color: #4da6ff;
-}
-
-/* 무한대 인포그래픽 */
 .infinity-infographic {
     flex: 1;
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 15px;
+    justify-content: center;
+    gap: 10px;
+    background: #ffffff;
+    padding: 12px;
+    border-radius: 50px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
 }
 
 .inf-node {
-    background-color: #2b2b2b;
-    color: #ffcc00;
-    font-weight: bold;
-    padding: 10px 15px;
-    border-radius: 8px;
-    border: 2px solid #ffcc00;
-    box-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
-    text-align: center;
-    font-size: 1.05rem;
-    white-space: nowrap;
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 6px 12px;
+    border-radius: 20px;
+    color: #ffffff;
 }
+
+.bg-pink { background-color: #ec4899; }
+.bg-blue { background-color: #3b82f6; }
 
 .inf-symbol {
-    font-size: 4rem;
-    color: #4da6ff;
-    line-height: 1;
-    text-shadow: 0 0 15px rgba(77, 166, 255, 0.8);
-    animation: pulse-glow 2s infinite alternate;
-}
-
-@keyframes pulse-glow {
-    0% { transform: scale(1); opacity: 0.8; }
-    100% { transform: scale(1.1); opacity: 1; }
-}
-
-/* --- 본문 슬라이드 10 (Slide 11) 전용 스타일 --- */
-
-/* 3분할 카드 레이아웃 */
-.three-cards-layout {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-    align-items: start; /* 위쪽 정렬하여 박스들이 각자의 높이를 가지게 함 */
-}
-
-.impact-card {
-    background-color: rgba(35, 40, 45, 0.9);
-    border: 1px solid #555;
-    border-radius: 12px;
-    padding: 25px 20px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-    display: flex;
-    flex-direction: column;
-}
-
-.relative-box {
-    position: relative;
-}
-
-.card-icon {
-    font-size: 3rem;
-    text-align: center;
-    margin-bottom: 15px;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-}
-
-.impact-card h3 {
-    font-size: 1.25rem;
-    color: #ffffff;
-    text-align: center;
-    margin: 0 0 5px 0;
-    line-height: 1.3;
-}
-
-.impact-card .year {
-    font-size: 0.95rem;
-    color: #aaaaaa;
-    font-weight: normal;
-}
-
-.sub-theme {
-    text-align: center;
-    color: #4da6ff;
-    font-size: 0.95rem;
-    font-weight: bold;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px dashed #666;
-}
-
-.impact-card ul {
-    padding-left: 15px;
-    margin: 0 0 15px 0;
-}
-
-.impact-card li {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: #cccccc;
-    margin-bottom: 10px;
-    word-break: keep-all;
-}
-
-/* 인용구 및 부연 설명 박스 */
-.quote-box {
-    background-color: rgba(0, 0, 0, 0.4);
-    border-left: 4px solid #ffcc00;
-    padding: 12px 15px;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    color: #e6e6e6;
-    line-height: 1.5;
-    margin-top: auto; /* 박스 하단으로 밀어냄 */
-}
-
-.quote-box strong {
-    color: #ffcc00;
-}
-
-.mb-10 {
-    margin-bottom: 10px;
-}
-
-/* 마브러브 하단 영향력 연결선 및 주석 */
-.legacy-arrow {
-    text-align: center;
-    color: #ff6666;
-    font-size: 2rem;
-    margin: 5px 0;
-    /* 이전 슬라이드에서 정의한 떠오르는 애니메이션 재사용 */
-    animation: floating 2s infinite ease-in-out; 
-}
-
-.legacy-box {
-    background: linear-gradient(135deg, rgba(150, 20, 20, 0.9), rgba(80, 10, 10, 0.9));
-    color: #ffffff;
-    text-align: center;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    font-weight: bold;
-    border: 2px solid #ff4d4d;
-    box-shadow: 0 4px 10px rgba(255, 0, 0, 0.4);
-}
-
-/* --- 본문 슬라이드 11 (Slide 12) 전용 스타일 --- */
-
-/* 좌(패널) 우(플로우차트) 분할 레이아웃 */
-.expansion-layout {
-    display: flex;
-    gap: 40px;
-    align-items: stretch;
-}
-
-/* 좌측 3개의 가로 패널 */
-.horizontal-panels {
-    flex: 1.6; /* 플로우차트보다 약간 더 넓게 할당 */
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.h-panel {
-    background-color: rgba(45, 50, 55, 0.8);
-    border-radius: 10px;
-    padding: 20px 25px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-    border-left: 5px solid #4da6ff;
-}
-
-/* 패널별 포인트 컬러 */
-.panel-haruhi { border-left-color: #ffcc00; }
-.panel-sliceoflife { border-left-color: #ff99cc; }
-.panel-kyoani { border-left-color: #66ccff; }
-
-.h-panel h3 {
-    margin: 0 0 12px 0;
-    font-size: 1.2rem;
-    color: #ffffff;
-}
-
-.h-panel ul {
-    padding-left: 20px;
-    margin: 0;
-}
-
-.h-panel li {
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #cccccc;
-    margin-bottom: 8px;
-    word-break: keep-all;
-}
-
-/* 🎯 키워드 강조 스타일 (형광펜 스타일) */
-.highlight-word {
-    background: linear-gradient(180deg, transparent 60%, rgba(255, 204, 0, 0.6) 60%);
-    color: #ffffff;
-    font-weight: bold;
-    padding: 0 4px;
-}
-
-/* 우측 순환 플로우차트 */
-.flowchart-panel {
-    flex: 1;
-    background-color: rgba(30, 30, 30, 0.6);
-    border: 1px dashed #777;
-    border-radius: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-
-.loop-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    width: 100%;
-}
-
-.flow-step {
-    background-color: #2b2b2b;
-    border: 2px solid #555;
-    border-radius: 12px;
-    padding: 15px 20px;
-    text-align: center;
-    width: 80%;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-    z-index: 2;
-}
-
-.highlight-step {
-    border-color: #ff99cc;
-    background-color: rgba(255, 153, 204, 0.1);
-}
-
-.step-icon {
-    font-size: 2rem;
-    margin-bottom: 8px;
-}
-
-.step-text {
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 1rem;
-    line-height: 1.4;
-}
-
-.flow-arrow-down {
-    color: #4da6ff;
-    font-size: 2rem;
-    margin: 10px 0;
-    z-index: 1;
-}
-
-/* 순환 구조 시각화 (위로 돌아가는 곡선 텍스트/화살표) */
-.return-arrow {
-    position: absolute;
-    left: -20px;
-    top: 50%;
-    transform: translateY(-50%) rotate(-90deg);
-    color: #ffcc00;
-    font-weight: bold;
-    font-size: 0.95rem;
-    letter-spacing: 2px;
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-    white-space: nowrap;
-}
-
-/* --- 본문 슬라이드 12 (Slide 13) 전용 스타일 --- */
-
-/* 좌우 이분할 구조 */
-.shonen-split {
-    display: flex;
-    gap: 30px;
-    margin-bottom: 25px;
-    align-items: stretch;
-}
-
-/* 개별 만화 카드 디자인 */
-.shonen-card {
-    flex: 1;
-    background-color: rgba(30, 35, 40, 0.85);
-    border-radius: 12px;
-    padding: 25px 20px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-    display: flex;
-    flex-direction: column;
-    border-top: 5px solid;
-    transition: transform 0.2s ease;
-}
-
-.shonen-card:hover {
-    transform: translateY(-5px);
-}
-
-/* 작품별 컬러 테마 */
-.card-fma {
-    border-top-color: #ff4d4d; /* 연금술사 붉은색 포인트 */
-    background: linear-gradient(180deg, rgba(255, 77, 77, 0.08) 0%, rgba(30, 35, 40, 0.85) 40%);
-}
-
-.card-deathnote {
-    border-top-color: #cccccc; /* 데스노트 무채색 포인트 */
-    background: linear-gradient(180deg, rgba(204, 204, 204, 0.08) 0%, rgba(30, 35, 40, 0.85) 40%);
-}
-
-.shonen-icon {
-    font-size: 3.5rem;
-    text-align: center;
-    margin-bottom: 10px;
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
-}
-
-.shonen-card h3 {
-    font-size: 1.25rem;
-    color: #ffffff;
-    text-align: center;
-    margin: 0 0 8px 0;
-}
-
-.shonen-sub {
-    text-align: center;
-    font-size: 0.95rem;
-    color: #ffaa00; /* 황금빛 서브타이틀 */
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px dashed #666;
-}
-
-.shonen-card ul {
-    padding-left: 15px;
-    margin: 0;
-}
-
-.shonen-card li {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #dcdcdc;
-    margin-bottom: 12px;
-    word-break: keep-all;
-}
-
-/* 🎯 밑줄 및 볼드 강조 스타일 */
-.shonen-kw {
-    font-weight: bold;
-    color: #4da6ff; /* 푸른색 포인트 */
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    text-decoration-thickness: 2px;
-}
-
-/* 하단 결론 배너 스타일 */
-.shonen-banner {
-    background: linear-gradient(90deg, rgba(40, 50, 70, 0.95), rgba(30, 40, 60, 0.9));
-    border-left: 6px solid #4da6ff;
-    border-radius: 8px;
-    padding: 20px 30px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    text-align: left;
-}
-
-.shonen-banner h3 {
-    margin: 0 0 10px 0;
-    color: #ffffff;
-    font-size: 1.15rem;
-}
-
-.shonen-banner p {
-    margin: 0;
-    font-size: 1.05rem;
-    line-height: 1.6;
-    color: #f2f2f2;
-    word-break: keep-all;
-}
-
-/* --- 본문 슬라이드 13 (Slide 14) 전용 스타일 --- */
-
-/* 프로슈머 레이아웃 (우측 비중을 더 넓게 설정) */
-.prosumer-layout {
-    display: flex;
-    gap: 50px;
-    align-items: center;
-}
-
-.prosumer-text {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.prosumer-text h3 {
-    margin: 0 0 10px 0;
-    color: #e6e6e6;
-    font-size: 1.2rem;
-}
-
-.prosumer-text ul {
-    padding-left: 20px;
-    margin: 0;
-}
-
-.prosumer-text li {
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #cccccc;
-    margin-bottom: 8px;
-    word-break: keep-all;
-}
-
-/* 🎯 키워드 강조 (네온 민트색) */
-.prosumer-kw {
-    color: #66ff99; 
-    font-weight: bold;
-    border-bottom: 2px solid #66ff99;
-    padding-bottom: 2px;
-}
-
-/* 우측 다이어그램 영역 */
-.prosumer-diagram {
-    flex: 1.4; 
-    position: relative;
-    height: 450px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(30, 40, 35, 0.6);
-    border-radius: 20px;
-    border: 1px solid #555;
-    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
-}
-
-.cycle-container {
-    position: relative;
-    width: 320px;
-    height: 320px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* 외부 순환 궤도 */
-.outer-ring {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: 4px dashed #66ff99;
-    border-radius: 50%;
-    opacity: 0.6;
-    /* 천천히 도는 효과 */
-    animation: spin-orbit-slow 20s linear infinite;
-}
-
-@keyframes spin-orbit-slow {
-    100% { transform: rotate(360deg); }
-}
-
-/* 중앙 원작 코어 (빛나는 하얀색) */
-.core-ip {
-    position: relative;
-    z-index: 10;
-    background: radial-gradient(circle, #ffffff, #dddddd);
-    color: #000;
-    font-weight: bold;
-    padding: 30px 20px;
-    border-radius: 50%;
-    text-align: center;
-    font-size: 1.3rem;
-    box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
-}
-
-.core-ip span {
-    font-size: 0.85rem;
-    font-weight: normal;
-}
-
-/* 위성 노드들 */
-.satellite {
-    position: absolute;
-    background-color: #2b2b2b;
-    color: #ffffff;
-    border: 2px solid #66ff99;
-    padding: 10px 15px;
-    border-radius: 25px;
-    font-weight: bold;
-    font-size: 0.95rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    z-index: 15;
-    white-space: nowrap;
-}
-
-/* 위성을 삼각형 구도로 배치 */
-.sat-1 { top: -15px; left: 50%; transform: translateX(-50%); }
-.sat-2 { bottom: 30px; right: -30px; }
-.sat-3 { bottom: 30px; left: -30px; }
-
-/* 라벨 (플랫폼 및 재유입) */
-.ring-label {
-    position: absolute;
-    font-weight: bold;
-    padding: 8px 18px;
-    border-radius: 20px;
-    font-size: 0.95rem;
-    z-index: 20;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-    white-space: nowrap;
-}
-
-.label-top { 
-    top: -60px; 
-    left: 50%; 
-    transform: translateX(-50%); 
-    background-color: #66ff99; 
-    color: #000;
-}
-
-.label-bottom { 
-    bottom: -60px; 
-    left: 50%; 
-    transform: translateX(-50%); 
-    background-color: #333; 
-    color: #66ff99;
-    border: 2px solid #66ff99;
-}
-
-/* --- 본문 슬라이드 14 (Slide 15) 전용 스타일 --- */
-
-/* 1:1 분할 구조 */
-.dark-fantasy-split {
-    display: flex;
-    gap: 40px;
-    margin-bottom: 25px;
-    align-items: stretch;
-}
-
-/* 다크 판타지 카드 기본 스타일 */
-.df-card {
-    flex: 1;
-    background-color: rgba(25, 25, 30, 0.9);
-    border-radius: 12px;
-    padding: 30px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
-    position: relative;
-    overflow: hidden;
-}
-
-.df-card h3 {
-    font-size: 1.3rem;
-    color: #ffffff;
-    margin: 0 0 20px 0;
-    text-align: center;
-    border-bottom: 1px solid #444;
-    padding-bottom: 15px;
-}
-
-.df-sub {
-    font-size: 1.05rem;
-    color: #ff9999;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 15px;
-}
-
-.df-card ul {
-    padding-left: 20px;
-    margin: 0;
-}
-
-.df-card li {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #dcdcdc;
-    margin-bottom: 12px;
-    word-break: keep-all;
-}
-
-/* 🎯 매체 교류/융합 형광펜 강조 효과 */
-.cross-media-highlight {
-    background: linear-gradient(transparent 50%, rgba(200, 255, 0, 0.7) 50%);
-    color: #ffffff;
-    padding: 0 4px;
-    letter-spacing: 1px;
-}
-
-/* 진격의 거인: 흑백 반전 박스 (선악의 붕괴) */
-.card-aot {
-    border-left: 5px solid #ffcc00;
-}
-
-.bw-reverse-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 60px;
-    margin: 0 auto 20px auto;
-    width: 80%;
-    border-radius: 8px;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-}
-
-.bw-half {
-    flex: 1;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-
-.bw-white {
-    background-color: #ffffff;
-    color: #000000;
-}
-
-.bw-black {
-    background-color: #000000;
-    color: #ffffff;
-}
-
-.bw-crack {
-    position: absolute;
-    font-size: 2rem;
-    color: #ff3333;
-    z-index: 2;
-    transform: rotate(15deg);
-}
-
-/* 마도카 마기카: 기괴한 그림자 아이콘 */
-.card-madoka {
-    border-left: 5px solid #ff66b2;
-}
-
-.mascot-shadow-container {
-    text-align: center;
-    margin: 0 auto 20px auto;
-    position: relative;
-    height: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.cute-mascot {
-    font-size: 2.5rem;
-    position: relative;
-    z-index: 5;
-    /* 작고 귀여운 마스코트 뒤로 길고 기괴하게 늘어지는 검붉은 그림자 생성 */
-    text-shadow: 
-        0 0 10px rgba(255,102,178,0.8),
-        5px 15px 5px rgba(100, 0, 0, 0.8),
-        10px 30px 10px rgba(50, 0, 0, 0.9),
-        15px 50px 15px rgba(0, 0, 0, 0.9);
-}
-
-/* --- 본문 슬라이드 15 (Slide 16) 전용 스타일 --- */
-
-/* 좌우 이분할 레이아웃 */
-.gameplay-split {
-    display: flex;
-    gap: 35px;
-    align-items: stretch;
-}
-
-/* 플레이 경험 카드 기본 스타일 */
-.gp-card {
-    flex: 1;
-    background-color: rgba(30, 32, 35, 0.9);
-    border-radius: 12px;
-    padding: 30px 25px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    border-top: 6px solid #4da6ff;
-}
-
-/* 페르소나 테마 (강렬한 레드 포인트) */
-.card-persona {
-    border-top-color: #ff0033;
-    background: linear-gradient(145deg, rgba(30, 32, 35, 0.95), rgba(40, 15, 15, 0.8));
-}
-
-/* 니어 테마 (무채색/베이지 톤 포인트) */
-.card-nier {
-    border-top-color: #d9d4c1;
-    background: linear-gradient(145deg, rgba(30, 32, 35, 0.95), rgba(45, 45, 45, 0.8));
-}
-
-/* 시각적 메타포 (아이콘 컨테이너) */
-.gp-icon-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
-}
-
-.gp-icon {
-    font-size: 3rem;
-    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.6));
-}
-
-.gp-icon-separator {
-    font-size: 1.5rem;
-    color: #888;
-    font-weight: bold;
-}
-
-/* 카드 제목 및 부제 */
-.gp-card h3 {
-    font-size: 1.25rem;
-    color: #ffffff;
-    text-align: center;
-    margin: 0 0 10px 0;
-}
-
-.gp-sub {
-    font-size: 1rem;
-    color: #b3b3b3;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-/* 카드 리스트 스타일 */
-.gp-card ul {
-    padding-left: 20px;
-    margin: 0;
-}
-
-.gp-card li {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #dcdcdc;
-    margin-bottom: 15px;
-    word-break: keep-all;
-}
-
-/* 🎯 게임 고유 문법 키워드 강조 (강한 밑줄과 색상) */
-.game-grammar-kw {
-    font-weight: 800;
-    color: #ffcc00;
-    border-bottom: 3px solid #ffcc00;
-    padding-bottom: 1px;
-}
-
-/* --- 본문 슬라이드 16 (Slide 17) 전용 스타일 --- */
-
-/* 3분할 세로형 카드 레이아웃 */
-.idol-cards-layout {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    align-items: stretch;
-}
-
-/* 개별 카드 기본 스타일 */
-.idol-card {
-    background-color: rgba(40, 45, 55, 0.85);
-    border-radius: 15px;
-    padding: 30px 20px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.idol-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
-}
-
-/* 카드별 상단 포인트 컬러 라인 */
-.card-slice { border-top: 5px solid #ffcc66; } /* 따뜻한 일상 (노랑/주황) */
-.card-live { border-top: 5px solid #ff66cc; } /* 아이돌 라이브 (핑크) */
-.card-relation { border-top: 5px solid #66ccff; } /* 관계성 (하늘색) */
-
-.idol-icon {
-    font-size: 3.5rem;
-    text-align: center;
-    margin-bottom: 20px;
-    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
-}
-
-.idol-card h3 {
-    font-size: 1.25rem;
-    color: #ffffff;
-    text-align: center;
-    margin: 0 0 10px 0;
-    line-height: 1.4;
-}
-
-.idol-sub {
-    font-size: 0.95rem;
-    color: #cccccc;
-    text-align: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px dashed #777;
-    word-break: keep-all;
-}
-
-.idol-card ul {
-    padding-left: 15px;
-    margin: 0;
-}
-
-.idol-card li {
-    font-size: 1.05rem;
-    line-height: 1.6;
-    color: #e6e6e6;
-    margin-bottom: 15px;
-    word-break: keep-all;
-}
-
-/* 🎯 지속성과 관계성 강조 (핑크빛 형광펜 효과) */
-.highlight-sustain {
-    background: linear-gradient(180deg, transparent 55%, rgba(255, 102, 204, 0.7) 55%);
-    color: #ffffff;
-    font-weight: bold;
-    padding: 0 3px;
-    border-radius: 2px;
-}
-
-/* --- 본문 슬라이드 17 (Slide 18) 전용 스타일 --- */
-
-/* 좌우 이분할 레이아웃 */
-.realworld-split {
-    display: flex;
-    gap: 40px;
-    align-items: stretch;
-    margin-top: 10px;
-}
-
-/* 개별 카드 기본 스타일 */
-.rw-card {
-    flex: 1;
-    background-color: rgba(35, 40, 35, 0.9); /* 자연과 역사를 상징하는 약간 짙은 올리브/그레이 톤 */
-    border-radius: 12px;
-    padding: 30px 25px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-    display: flex;
-    flex-direction: column;
-}
-
-/* 카드별 상단 포인트 컬러 */
-.card-local { border-top: 6px solid #66cc99; } /* 현실/지역 - 초록 계열 */
-.card-history { border-top: 6px solid #ffaa00; } /* 역사/의인화 - 주황/금색 계열 */
-
-/* 아이콘 플로우 (TV -> 현실, 역사 -> 캐릭터) */
-.rw-icon-flow {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 25px;
-    background-color: rgba(0, 0, 0, 0.3);
-    padding: 15px;
-    border-radius: 10px;
-}
-
-.rw-icon {
-    font-size: 3rem;
-    filter: drop-shadow(0 3px 5px rgba(0,0,0,0.5));
-}
-
-.rw-arrow {
-    font-size: 2rem;
-    color: #4da6ff;
-    font-weight: bold;
-    animation: slide-arrow 1.5s infinite ease-in-out; /* 흐름을 보여주는 애니메이션 */
-}
-
-@keyframes slide-arrow {
-    0% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    100% { transform: translateX(-5px); }
-}
-
-/* 제목 및 부제 */
-.rw-card h3 {
-    font-size: 1.25rem;
-    color: #ffffff;
-    text-align: center;
-    margin: 0 0 10px 0;
-    line-height: 1.4;
-}
-
-.rw-sub {
-    font-size: 0.95rem;
-    color: #b3d9ff;
-    text-align: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
-    font-weight: bold;
-}
-
-/* 리스트 텍스트 */
-.rw-card ul {
-    padding-left: 15px;
-    margin: 0;
-}
-
-.rw-card li {
-    font-size: 1.05rem;
-    line-height: 1.6;
-    color: #dcdcdc;
-    margin-bottom: 15px;
-    word-break: keep-all;
-}
-
-/* 🎯 현실 교차 포인트 강조 (자연/현실을 상징하는 초록색 굵은 밑줄) */
-.rw-highlight {
-    font-weight: bold;
-    color: #66ff99;
-    border-bottom: 2px solid #66ff99;
-    padding-bottom: 1px;
-}
-
-/* --- 본문 슬라이드 18 (Slide 19) 전용 스타일 --- */
-
-/* 미디어 믹스 흐름도 다이어그램 */
-.music-flow-diagram {
-    background-color: rgba(20, 25, 30, 0.7);
-    border: 1px solid #444;
-    border-radius: 12px;
-    padding: 20px 30px;
-    margin-bottom: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
-}
-
-.flow-row {
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding-left: 100px; /* 라벨 공간 확보 */
-}
-
-.flow-label {
-    position: absolute;
-    left: 0;
-    font-weight: bold;
-    font-size: 0.9rem;
-    padding: 5px 10px;
-    border-radius: 4px;
-}
-
-/* 1. 흐릿한 기존 흐름 */
-.faded-flow {
-    opacity: 0.4;
-    filter: grayscale(80%);
-}
-
-.faded-flow .flow-label {
-    background-color: #555;
-    color: #ccc;
-}
-
-.faded-flow .node {
-    background-color: #333;
-    color: #aaa;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 0.95rem;
-}
-
-.faded-flow .arrow {
-    margin: 0 15px;
-    color: #777;
-    font-size: 1.5rem;
-}
-
-/* 2. 강조된 새로운 흐름 (2010년대) */
-.highlight-flow {
-    margin-top: 10px;
-}
-
-.active-label {
-    background-color: #ff3366;
-    color: #fff;
-    box-shadow: 0 0 10px rgba(255, 51, 102, 0.6);
-}
-
-.highlight-flow .node {
-    padding: 15px 25px;
-    border-radius: 10px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-    border: 2px solid;
-}
-
-.origin-node { background-color: #1a3344; color: #4da6ff; border-color: #4da6ff; }
-.interpret-node { background-color: #331a33; color: #cc66ff; border-color: #cc66ff; }
-.expand-node { background-color: #44331a; color: #ffcc00; border-color: #ffcc00; }
-
-.small-text {
-    font-size: 0.85rem;
-    font-weight: normal;
-    color: #e6e6e6;
-}
-
-.bold-arrow {
-    margin: 0 20px;
-    color: #66ff99;
-    font-size: 2.5rem;
-    text-shadow: 0 0 10px rgba(102, 255, 153, 0.5);
-    animation: pulse-arrow 1.5s infinite alternate;
-}
-
-@keyframes pulse-arrow {
-    0% { transform: scale(1); opacity: 0.7; }
-    100% { transform: scale(1.2); opacity: 1; }
-}
-
-/* 하단 텍스트 이분할 레이아웃 */
-.music-split {
-    display: flex;
-    gap: 30px;
-    align-items: stretch;
-}
-
-.music-card {
-    flex: 1;
-    background-color: rgba(35, 35, 40, 0.9);
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
-    border-top: 5px solid;
-}
-
-.card-senbonzakura { border-top-color: #ff99cc; } /* 벚꽃색 */
-.card-kagerou { border-top-color: #ff3333; } /* 붉은색 포인트 */
-
-.music-card h3 {
-    font-size: 1.25rem;
-    color: #ffffff;
-    margin: 0 0 5px 0;
-}
-
-.music-sub {
-    font-size: 0.95rem;
-    color: #cccccc;
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px dashed #666;
-}
-
-.music-card ul {
-    padding-left: 20px;
-    margin: 0;
-}
-
-.music-card li {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #dcdcdc;
-    margin-bottom: 10px;
-    word-break: keep-all;
-}
-
-/* 🎯 키워드 강조 효과 (네온 스타일) */
-.music-kw {
-    color: #ffffff;
-    font-weight: bold;
-    background: linear-gradient(180deg, transparent 50%, rgba(77, 166, 255, 0.6) 50%);
-    padding: 0 2px;
-}
-
-/* --- 본문 슬라이드 19 (Slide 20) 전용 스타일 --- */
-
-/* 좌우 이분할 레이아웃 */
-.empathy-split {
-    display: flex;
-    gap: 40px;
-    align-items: stretch;
-}
-
-/* 개별 카드 기본 스타일 */
-.emp-card {
-    flex: 1;
-    background-color: rgba(30, 32, 38, 0.9);
-    border-radius: 12px;
-    padding: 30px 25px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
-    border-top: 6px solid;
-    transition: transform 0.2s ease;
-}
-
-.emp-card:hover {
-    transform: translateY(-5px);
-}
-
-/* 작품별 포인트 컬러 */
-.card-chainsaw {
-    border-top-color: #ff4500; /* 체인소 맨: 피/오렌지레드 */
-}
-
-.card-bocchi {
-    border-top-color: #ff66b2; /* 봇치: 핑크 */
-}
-
-/* 시각적 메타포 (아이콘 컨테이너) */
-.emp-icon-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
-}
-
-.emp-icon {
-    font-size: 3rem;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-}
-
-.emp-icon-separator {
-    font-size: 1.5rem;
-    color: #888;
-    font-weight: bold;
-}
-
-/* 카드 제목 및 부제 */
-.emp-card h3 {
-    font-size: 1.25rem;
-    color: #ffffff;
-    text-align: center;
-    margin: 0 0 10px 0;
-}
-
-.emp-sub {
-    font-size: 1rem;
-    color: #b3b3b3;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-/* 리스트 스타일 */
-.emp-card ul {
-    padding-left: 20px;
-    margin: 0 0 15px 0;
-}
-
-.emp-card li {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #dcdcdc;
-    margin-bottom: 12px;
-    word-break: keep-all;
-}
-
-/* 🎯 시대적 공감대 키워드 강조 (그라데이션 하이라이트) */
-.empathy-kw {
-    background: linear-gradient(180deg, transparent 55%, rgba(255, 204, 0, 0.7) 55%);
-    color: #ffffff;
-    font-weight: bold;
-    padding: 0 3px;
-    border-radius: 2px;
-}
-
-/* 인용구 박스를 카드 하단으로 밀어냄 */
-.mt-auto {
-    margin-top: auto;
-}
-
-/* --- 본문 슬라이드 20 (Slide 21) 전용 스타일 --- */
-
-/* 좌우 이분할 레이아웃 */
-.puzzle-split {
-    display: flex;
-    gap: 40px;
-    align-items: stretch;
-}
-
-/* 개별 카드 기본 스타일 */
-.puzzle-card {
-    flex: 1;
-    background-color: rgba(30, 35, 40, 0.9);
-    border-radius: 12px;
-    padding: 30px 25px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
-    border-top: 6px solid;
-    transition: transform 0.2s ease;
-}
-
-.puzzle-card:hover {
-    transform: translateY(-5px);
-}
-
-/* 작품별 포인트 컬러 */
-.card-uma {
-    border-top-color: #33cc33; /* 잔디/경마장을 상징하는 초록색 */
-}
-
-.card-sekai {
-    border-top-color: #33cccc; /* 보컬로이드/미쿠를 상징하는 청록색 */
-}
-
-/* 시각적 메타포 (퍼즐 결합 그래픽) */
-.puzzle-graphic {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 25px;
-    background-color: rgba(0, 0, 0, 0.3);
-    padding: 15px 10px;
-    border-radius: 10px;
-}
-
-.puzzle-piece {
-    background-color: #2b2b2b;
-    color: #ffffff;
-    font-size: 0.9rem;
-    font-weight: bold;
-    padding: 8px 12px;
-    border-radius: 6px;
-    border: 2px dashed #888;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.4);
-    text-align: center;
-    white-space: nowrap;
-}
-
-.card-uma .puzzle-piece { border-color: #33cc33; }
-.card-sekai .puzzle-piece { border-color: #33cccc; }
-
-.puzzle-plus {
-    font-size: 1.5rem;
-    color: #aaaaaa;
-    font-weight: bold;
-}
-
-/* 카드 제목 및 부제 */
-.puzzle-card h3 {
-    font-size: 1.25rem;
-    color: #ffffff;
-    text-align: center;
-    margin: 0 0 10px 0;
-}
-
-.puzzle-sub {
-    font-size: 1rem;
-    color: #cccccc;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
-}
-
-/* 리스트 스타일 */
-.puzzle-card ul {
-    padding-left: 20px;
-    margin: 0;
-}
-
-.puzzle-card li {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #dcdcdc;
-    margin-bottom: 15px;
-    word-break: keep-all;
-}
-
-/* 🎯 문법 융합 키워드 강조 (밝은 노란색 그라데이션) */
-.puzzle-kw {
-    background: linear-gradient(180deg, transparent 55%, rgba(255, 215, 0, 0.7) 55%);
-    color: #ffffff;
-    font-weight: bold;
-    padding: 0 3px;
-}
-
-/* --- 본문 슬라이드 21 (Slide 22) 전용 스타일 --- */
-
-/* 상단 소개 배너 */
-.jpop-intro-banner {
-    background: linear-gradient(90deg, rgba(20, 30, 50, 0.9), rgba(40, 20, 50, 0.9));
-    border-left: 5px solid #4da6ff;
-    border-radius: 8px;
-    padding: 20px 25px;
-    margin-bottom: 25px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-}
-
-.jpop-intro-banner h3 {
-    margin: 0 0 10px 0;
-    color: #ffffff;
-    font-size: 1.15rem;
-}
-
-.jpop-intro-banner p {
-    margin: 0 0 8px 0;
-    font-size: 1.05rem;
-    line-height: 1.5;
-    color: #dcdcdc;
-    word-break: keep-all;
-}
-
-/* 좌우 이분할 레이아웃 */
-.artist-split {
-    display: flex;
-    gap: 30px;
-    align-items: stretch;
-}
-
-/* 개별 아티스트 카드 */
-.artist-card {
-    flex: 1;
-    background-color: rgba(30, 30, 35, 0.9);
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
-}
-
-.card-yonezu { border-top: 5px solid #ff4d4d; } /* 체인소 맨/록 느낌의 붉은색 */
-.card-yoasobi { border-top: 5px solid #cc33ff; } /* 최애의 아이/팝 느낌의 보라색 */
-
-/* 진화 플로우 시각화 */
-.evolution-flow {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 25px;
-    background-color: rgba(0, 0, 0, 0.4);
-    padding: 15px 10px;
-    border-radius: 10px;
-}
-
-.evo-node {
-    padding: 8px 15px;
-    border-radius: 8px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 1rem;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.4);
-}
-
-.evo-node span {
-    font-size: 0.8rem;
-    font-weight: normal;
-    opacity: 0.8;
-}
-
-.node-vocaloid { background-color: #2b4a6f; color: #b3d9ff; border: 1px solid #4da6ff; }
-.node-singer { background-color: #661a1a; color: #ff9999; border: 1px solid #ff4d4d; }
-.node-unit { background-color: #4d1a66; color: #e699ff; border: 1px solid #cc33ff; }
-
-.evo-arrow {
-    font-size: 1.5rem;
-    color: #888;
-}
-
-.evo-icon {
     font-size: 2.2rem;
-    margin-left: 5px;
-    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
-}
-
-/* 카드 텍스트 요소 */
-.artist-card h3 {
-    font-size: 1.25rem;
-    color: #ffffff;
-    text-align: center;
-    margin: 0 0 15px 0;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #555;
-}
-
-.artist-card ul {
-    padding-left: 20px;
-    margin: 0;
-}
-
-.artist-card li {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #cccccc;
-    margin-bottom: 12px;
-    word-break: keep-all;
-}
-
-/* 🎯 글로벌 스트리밍 및 성과 강조 (네온 블루) */
-.jpop-highlight {
-    color: #ffffff;
-    font-weight: bold;
-    background: linear-gradient(180deg, transparent 55%, rgba(0, 204, 255, 0.7) 55%);
-    padding: 0 3px;
-    text-shadow: 0 0 5px rgba(0, 204, 255, 0.5);
-}
-
-/* --- 본문 슬라이드 22 (Slide 23) 전용 스타일 --- */
-
-/* 3분할 레이아웃 */
-.live-eco-layout {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-    align-items: stretch;
-}
-
-/* 개별 카드 기본 스타일 */
-.live-card {
-    background-color: rgba(30, 32, 40, 0.9);
-    border-radius: 12px;
-    padding: 30px 20px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-    display: flex;
-    flex-direction: column;
-    border-top: 5px solid;
-    transition: transform 0.2s ease;
-}
-
-.live-card:hover {
-    transform: translateY(-5px);
-}
-
-/* 분야별 포인트 컬러 (모바일: 블루, VTuber: 민트, 오시카츠: 핑크) */
-.card-mobile { border-top-color: #4da6ff; }
-.card-vtuber { border-top-color: #66ffcc; }
-.card-oshikatsu { border-top-color: #ff66b2; }
-
-/* 시각적 메타포 UI 목업 컨테이너 */
-.ui-mockup {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    margin-bottom: 25px;
-    overflow: hidden;
-}
-
-.mock-emoji {
-    font-size: 3.5rem;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-}
-
-/* 모바일 이벤트 알림 애니메이션 */
-.noti-badge {
-    position: absolute;
-    top: 15px;
-    right: 10px;
-    background-color: #ff3333;
-    color: #fff;
-    font-size: 0.75rem;
-    font-weight: bold;
-    padding: 4px 8px;
-    border-radius: 12px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-    animation: bounce-noti 2s infinite;
-}
-
-@keyframes bounce-noti {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-}
-
-/* VTuber 실시간 채팅 애니메이션 */
-.vtuber-screen {
-    position: relative;
-}
-
-.chat-flow {
-    position: absolute;
-    right: 5px;
-    bottom: -50px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    animation: scroll-chat 3s linear infinite;
-}
-
-.chat-bubble {
-    background-color: rgba(255, 255, 255, 0.8);
-    color: #000;
-    font-size: 0.7rem;
-    padding: 3px 8px;
-    border-radius: 10px;
-    white-space: nowrap;
-}
-
-.superchat {
-    background-color: #ffcc00;
-    color: #cc3300;
-    font-weight: bold;
-    border: 1px solid #cc3300;
-}
-
-@keyframes scroll-chat {
-    0% { transform: translateY(50px); opacity: 0; }
-    20% { opacity: 1; }
-    80% { opacity: 1; }
-    100% { transform: translateY(-80px); opacity: 0; }
-}
-
-/* 카드 제목 및 텍스트 */
-.live-card h3 {
-    font-size: 1.15rem;
-    color: #ffffff;
-    text-align: center;
-    margin: 0 0 15px 0;
-    line-height: 1.4;
-    border-bottom: 1px dashed #555;
-    padding-bottom: 15px;
-}
-
-.live-card ul {
-    padding-left: 15px;
-    margin: 0;
-}
-
-.live-card li {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #cccccc;
-    margin-bottom: 12px;
-    word-break: keep-all;
-}
-
-/* 🎯 지속성/일상성 강조 효과 (네온 핑크) */
-.neon-highlight {
-    color: #ffffff;
-    font-weight: bold;
-    background: linear-gradient(180deg, transparent 55%, rgba(255, 102, 178, 0.7) 55%);
-    padding: 0 2px;
-}
-/* --- 본문 슬라이드 23 (Slide 24) 전용 스타일 --- */
-
-/* 좌우 이분할 레이아웃 */
-.gap-split-layout {
-    display: flex;
-    gap: 30px;
-    align-items: stretch;
-}
-
-/* 개별 패널 기본 스타일 */
-.gap-panel {
-    flex: 1;
-    background-color: rgba(35, 40, 45, 0.9);
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
-}
-
-.card-market { border-top: 5px solid #4da6ff; }
-.card-structure { border-top: 5px solid #ff4d4d; }
-
-.gap-panel h3 {
-    font-size: 1.15rem;
-    color: #ffffff;
-    margin: 0 0 15px 0;
-}
-
-.gap-panel ul {
-    padding-left: 20px;
-    margin: 0;
-}
-
-.gap-panel li {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: #dcdcdc;
-    margin-bottom: 12px;
-    word-break: keep-all;
-}
-
-/* 🎯 키워드 하이라이트 (경고/분석 톤의 노란색) */
-.gap-highlight {
-    background: linear-gradient(180deg, transparent 55%, rgba(255, 204, 0, 0.7) 55%);
-    color: #ffffff;
-    font-weight: bold;
-    padding: 0 2px;
-}
-
-/* 좌측: 시장 규모 누적 막대그래프 */
-.market-chart-container {
-    background-color: rgba(0, 0, 0, 0.3);
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
-
-.chart-title {
-    font-size: 0.85rem;
-    color: #b3b3b3;
-    text-align: center;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-.stacked-bar {
-    display: flex;
-    height: 40px;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-}
-
-.bar-foreign {
-    width: 56.5%;
-    background-color: #4da6ff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    font-weight: bold;
-    color: #000;
-    text-align: center;
-    line-height: 1.2;
-}
-
-.bar-domestic {
-    width: 43.5%;
-    background-color: #2b4a6f;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    color: #fff;
-    text-align: center;
-    line-height: 1.2;
-}
-
-/* 우측: 깔때기 인포그래픽 */
-.funnel-graphic {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
-}
-
-.funnel-top-revenue {
-    background-color: #ffd700;
-    color: #000;
-    font-weight: bold;
-    font-size: 0.95rem;
-    padding: 10px 40px;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-}
-
-.funnel-body {
-    width: 150px;
-    height: 60px;
-    background-color: #cc3333;
-    /* CSS clip-path를 이용해 역삼각형 깔때기 모양 생성 */
-    clip-path: polygon(0 0, 100% 0, 70% 100%, 30% 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-weight: bold;
-    font-size: 0.9rem;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-}
-
-/* 떨어지는 물방울 애니메이션 */
-.funnel-drops {
-    height: 40px;
-    position: relative;
-    width: 30px;
-    display: flex;
-    justify-content: center;
-}
-
-.drop {
-    position: absolute;
-    font-size: 1.2rem;
-    animation: drop-fall 2s infinite linear;
-    opacity: 0;
-}
-
-.drop.delay {
-    animation-delay: 1s;
-}
-
-@keyframes drop-fall {
-    0% { transform: translateY(0); opacity: 1; }
-    80% { opacity: 1; }
-    100% { transform: translateY(35px); opacity: 0; }
-}
-
-.funnel-bottom-studio {
-    background-color: #333;
-    border: 1px solid #777;
-    color: #ccc;
-    font-size: 0.85rem;
-    padding: 5px 15px;
-    border-radius: 4px;
-    margin-top: 5px;
-}
-
-/* --- 본문 슬라이드 24 (Slide 25 - 결론) 전용 스타일 --- */
-
-/* 3단 세로 배열 레이아웃 */
-.sust-layout {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-/* 가로 패널 */
-.sust-panel {
-    background-color: rgba(35, 40, 45, 0.9);
-    border-radius: 12px;
-    padding: 20px 25px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    border-left: 5px solid #ffcc00; /* 결론을 상징하는 금색 라인 */
-}
-
-.sust-panel h3 {
-    font-size: 1.15rem;
-    color: #ffffff;
-    margin: 0 0 15px 0;
-    border-bottom: 1px dashed #666;
-    padding-bottom: 10px;
-}
-
-/* 저울 메타포를 위한 기회/과제 균형 레이아웃 */
-.sust-balance {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.sust-vs {
-    font-size: 1.5rem;
-    color: #888;
-    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
-}
-
-.sust-side {
-    flex: 1;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 8px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 80px;
-}
-
-/* 기회 (초록/네온) */
-.sust-opp {
-    border-top: 3px solid #66ff99;
-}
-
-.sust-opp .sust-icon {
-    color: #66ff99;
-    text-shadow: 0 0 8px rgba(102, 255, 153, 0.6);
-}
-
-/* 과제 (빨강/경고) */
-.sust-chal {
-    border-top: 3px solid #ff6666;
-}
-
-.sust-chal .sust-icon {
-    color: #ff6666;
-}
-
-.sust-icon {
-    font-weight: bold;
-    margin-bottom: 10px;
-    font-size: 1.05rem;
-}
-
-.sust-side p {
-    margin: 0;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: #dcdcdc;
-    word-break: keep-all;
-}
-
-/* 🎯 방어선(조건) 키워드 강조 (굵은 밑줄) */
-.sust-highlight {
-    font-weight: bold;
-    color: #ffcc00;
-    border-bottom: 2px solid #ffcc00;
-    padding-bottom: 1px;
-}
-
-/* --- 마무리 슬라이드 (Slide 26) 전용 스타일 --- */
-
-/* 전체 화면 중앙 정렬 */
-.center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* 화면 전체 높이 사용 */
-    text-align: center;
-    padding: 0;
-}
-
-/* 부드럽게 떠오르는 애니메이션 */
-.thank-you-section {
-    animation: fade-in-up-slow 1.2s ease-out forwards;
-    opacity: 0;
-}
-
-@keyframes fade-in-up-slow {
-    0% { opacity: 0; transform: translateY(30px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-/* 감사합니다 타이틀 */
-.thank-you-title {
-    font-size: 5.5rem;
-    color: #ffffff;
-    margin-bottom: 20px;
-    letter-spacing: 2px;
-    text-shadow: 0 4px 20px rgba(255, 204, 0, 0.4);
-}
-
-/* 서브타이틀 */
-.thank-you-subtitle {
-    font-size: 1.5rem;
-    color: #cccccc;
-    margin-bottom: 50px;
-    font-weight: 300;
-}
-
-/* Q&A 마커 (질의응답 유도 버튼 스타일) */
-.end-marker {
-    display: inline-block;
-    border: 2px solid #4da6ff;
-    padding: 12px 40px;
-    border-radius: 30px;
-    font-size: 1.3rem;
-    color: #4da6ff;
-    font-weight: bold;
-    letter-spacing: 2px;
-    transition: all 0.3s ease;
-    cursor: default;
-}
-
-/* 마우스 오버 시 네온 효과 */
-.end-marker:hover {
-    background-color: #4da6ff;
-    color: #000;
-    box-shadow: 0 0 20px rgba(77, 166, 255, 0.8);
-    transform: scale(1.05);
+    color: #94a3b8;
+    line-height: 1;
 }

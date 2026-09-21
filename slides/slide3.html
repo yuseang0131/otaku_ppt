@@ -5,7 +5,6 @@
     <title>웹 PPT - 본문 슬라이드 2</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
-<!-- 이전은 슬라이드 1(slide2.html), 다음은 슬라이드 3(slide4.html)으로 연결 -->
 <body data-prev="slide2.html" data-next="slide4.html">
     
     <div class="slide-container full-width">
@@ -20,39 +19,75 @@
             
             <!-- 기둥 1: 서사 -->
             <div class="pillar pillar-narrative">
-                <div class="pillar-icon">📖</div>
                 <h3>1. 서사: 인간과 세계를 묻다</h3>
-                <ul>
-                    <li><strong>『철완 아톰』 (1950~60s)</strong><br>만화·방송·상품의 최초 연결. 인간과 비인간의 경계, 과학의 책임 탐구.</li>
-                    <li><strong>『데빌맨』 (1970s)</strong><br>공포와 증오 속에서 "괴물은 누구인가?", "집단의 정의는 정당한가?"라는 극단적 질문 투척.</li>
-                </ul>
+                
+                <div class="info-list">
+                    <!-- 아톰 -->
+                    <div class="info-item-vert">
+                        <img src="../assets/atom.webp" alt="철완 아톰" class="item-img-large">
+                        <div class="item-desc">
+                            <strong>『철완 아톰』 (1950~60s)</strong>
+                            인간의 경계,과학의 책임 탐구.
+                        </div>
+                    </div>
+                    <!-- 데빌맨 -->
+                    <div class="info-item-vert">
+                        <img src="../assets/devilman.webp" alt="데빌맨" class="item-img-large">
+                        <div class="item-desc">
+                            <strong>『데빌맨』 (1970s)</strong>
+                            집단의 정의와 선악에 대한 극단적 질문 투척.
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- 기둥 2: 캐릭터 -->
             <div class="pillar pillar-character">
-                <div class="pillar-icon">⭐</div>
                 <h3>2. 캐릭터: 애착과 팬덤의 형성</h3>
-                <ul>
-                    <li><strong>『기동전사 건담』 (1970s)</strong><br>거대한 힘(로봇)에 대한 책임과 조종사의 심리, 전쟁의 정치성 묘사.</li>
-                    <li><strong>『시끌별 녀석들』, 『마크로스』 (1980s)</strong><br>연애 서사, 특정 인물에 대한 애착, 성우와 노래가 결합하며 '인물별 팬덤' 탄생.</li>
-                </ul>
+                
+                <div class="info-list">
+                    <!-- 건담 (이미지 없이 텍스트만) -->
+                    <div class="info-item-vert">
+                        <div class="item-desc">
+                            <strong>『기동전사 건담』 (1970s)</strong>
+                            절대악이 없는 전쟁. 조종사의 심리와 정치성 묘사.
+                        </div>
+                    </div>
+                    <!-- 시끌별 녀석들 + 마크로스 (가로 반반 분할) -->
+                    <div class="info-item-vert mt-10">
+                        <div class="img-row-half">
+                            <img src="../assets/시끌별_녀석들_1권_표지.jpg" alt="시끌별 녀석들" class="item-img-half">
+                            <img src="../assets/macross.webp" alt="마크로스" class="item-img-half">
+                        </div>
+                        <div class="item-desc">
+                            <strong>『시끌별』 & 『마크로스』 (80s)</strong>
+                            연애 서사와 노래의 결합. '캐릭터 팬덤'의 본격적 탄생.
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- 기둥 3: 팬 참여 -->
             <div class="pillar pillar-fan">
-                <div class="pillar-icon">📝</div>
                 <h3>3. 팬 참여: 창작하는 소비자</h3>
-                <ul>
-                    <li><strong>코믹마켓 (1975~)</strong><br>소녀만화 팬(여성 참가자)을 중심으로 동인 행사 시작.</li>
-                    <li><strong>생태계 원형 구축</strong><br>비평과 패러디, 동인지 제작을 통해 팬이 서로 교류하고 창작자로 진입하는 토대 마련.</li>
-                </ul>
+                
+                <div class="info-list">
+                    <div class="info-item-vert no-img-pad">
+                        <div class="pillar-icon-large">📝</div>
+                        <div class="item-desc center-text">
+                            <strong>코믹마켓 (1975~)</strong>
+                            소녀만화 팬을 중심으로 한 자발적 동인 행사 시작.
+                        </div>
+                    </div>
+                    <div class="info-item-vert">
+                        <div class="item-desc center-text border-top-pt">
+                            <strong>생태계 원형 구축</strong>
+                            단순 소비를 넘어, 팬들이 비평과 패러디 창작을 통해 능동적인 '생산자'로 진입하는 토대 마련.
+                        </div>
+                    </div>
+                </div>
             </div>
 
-        </div>
-
-        <!-- 다음 시대로 넘어감을 암시하는 옅은 화살표 -->
-        <div class="next-era-arrow">
-            ⬇
         </div>
 
     </div>

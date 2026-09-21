@@ -17,9 +17,9 @@
         <!-- 미디어 믹스 좌우 분할 레이아웃 -->
         <div class="media-mix-layout">
             
-            <!-- 좌측: 텍스트 설명 -->
-            <div class="text-panel">
-                <section>
+            <!-- 좌측: 텍스트 설명 (차분한 화이트 카드) -->
+            <div class="text-panel mm-text">
+                <section class="mb-20">
                     <h3>1. 『포켓몬스터』의 탄생과 무한 <span class="highlight-ip">다각화</span></h3>
                     <ul>
                         <li>1996년 게임 발매, 1997년 TV 애니메이션 방영 시작.</li>
@@ -27,7 +27,7 @@
                     </ul>
                 </section>
                 
-                <section style="margin-top: 30px;">
+                <section>
                     <h3>2. 현대적 글로벌 IP 비즈니스의 원형</h3>
                     <ul>
                         <li>단일 작품의 흥행으로 끝나지 않고, 매체를 넘나들며 <span class="highlight-ip">팬덤을 끝없이 재확대</span>하는 선순환 구조 확립.</li>
@@ -36,22 +36,24 @@
                 </section>
             </div>
 
-            <!-- 우측: IP 미디어 믹스 순환 다이어그램 -->
-            <div class="diagram-panel">
-                <!-- 천천히 회전하는 순환 궤도 -->
-                <div class="cycle-ring"></div>
+            <!-- 우측: 수직 정렬 패널 (이미지 -> 키워드 -> 캐릭터) -->
+            <div class="vertical-media-panel">
                 
-                <!-- 중앙 코어 -->
-                <div class="center-ip">
-                    원천 IP<br>
-                    <span>(캐릭터 / 세계관)</span>
+                <!-- 상단: 포켓몬 게임 메인 이미지 -->
+                <div class="media-top">
+                    <img src="../assets/pokemon.webp" alt="포켓몬스터 게임" class="pokemon-main-img">
                 </div>
                 
-                <!-- 궤도 위를 도는 4개의 노드 -->
-                <div class="orbit-node node-top">🎮 게임</div>
-                <div class="orbit-node node-right">📺 애니메이션</div>
-                <div class="orbit-node node-bottom">🃏 카드 / 완구</div>
-                <div class="orbit-node node-left">🌍 글로벌 팬덤</div>
+
+                <!-- 하단: 캐릭터 3인방 몰아서 배치 -->
+                <div class="media-characters">
+                    <img src="../assets/pokemon-maskana.webp" alt="마스카나" class="char-img trans-char">
+                    <img src="../assets/pokemon-glaysia.webp" alt="글레이시아" class="char-img trans-char">
+                    <img src="../assets/pokemon_gardian.png" alt="가디안" class="char-img trans-char">
+                    
+                    </div>
+                </div>
+
             </div>
 
         </div>

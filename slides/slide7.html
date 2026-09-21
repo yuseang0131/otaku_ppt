@@ -14,53 +14,60 @@
             <p class="subtitle">상호작용을 통한 애착 형성과 서사의 개별화 (1990s)</p>
         </header>
 
-        <!-- 상호작용 다이어그램 레이아웃 (그리드) -->
-        <div class="interaction-layout">
+        <!-- 2x2 그리드 레이아웃 (세로 넘침 완벽 방지) -->
+        <div class="game-grid-2x2">
             
-            <!-- 왼쪽 상단: 두근두근 메모리얼 -->
-            <div class="game-card tokimeki">
-                <h3>1. 『두근두근 메모리얼』 <span class="year">(1994)</span></h3>
-                <div class="genre-tag">시뮬레이션과 연애의 결합</div>
-                <ul>
-                    <li>학교생활, 능력치 육성, <span class="game-kw">일정 관리</span> 시스템을 연애 서사와 결합.</li>
-                    <li>플레이어의 선택과 노력에 따라 캐릭터와의 관계가 변하는 <span class="game-kw">상호작용</span>의 기틀 마련.</li>
-                </ul>
-            </div>
-
-            <!-- 중앙: 플레이어 ↔ 캐릭터 상호작용 -->
-            <div class="center-core">
-                <div class="entity player">🎮 플레이어</div>
-                <div class="interaction-arrow">
-                    <span class="arrow-icon">⬌</span><br>
-                    <span class="game-kw">상호작용</span>
+            <!-- 1. 두근두근 메모리얼 -->
+            <div class="game-card card-tokimeki">
+                <img src="../assets/dokidokimemorial.webp" alt="두근두근 메모리얼" class="game-img">
+                <div class="game-info">
+                    <h3>1. 『두근두근 메모리얼』 <span class="year">(1994)</span></h3>
+                    <div class="genre-tag tag-pink">시뮬레이션과 연애의 결합</div>
+                    <ul>
+                        <li><span class="game-kw">일정 관리</span> 시스템을 연애 서사와 결합.</li>
+                        <li>선택에 따라 캐릭터와의 관계가 변하는 <span class="game-kw">상호작용</span> 기틀 마련.</li>
+                    </ul>
                 </div>
-                <div class="entity character">✨ 캐릭터</div>
             </div>
 
-            <!-- 오른쪽: 안젤리크 -->
-            <div class="game-card angelique">
-                <h3>2. 『안젤리크』 <span class="year">(1994)</span></h3>
-                <div class="genre-tag">여성향 게임의 개척</div>
-                <ul>
-                    <li>로맨스와 육성 시뮬레이션을 결합하여 여성향 연애 게임(오토메 게임)의 중요한 출발점이 됨.</li>
-                </ul>
+            <!-- 2. 안젤리크 -->
+            <div class="game-card card-angelique">
+                <img src="../assets/angelik.jpg" alt="안젤리크" class="game-img">
+                <div class="game-info">
+                    <h3>2. 『안젤리크』 <span class="year">(1994)</span></h3>
+                    <div class="genre-tag tag-gold">여성향 게임의 개척</div>
+                    <ul>
+                        <li>로맨스와 육성 시뮬레이션을 결합.</li>
+                        <li>여성향 연애 게임(오토메 게임)의 기념비적 출발점이 됨.</li>
+                    </ul>
+                </div>
             </div>
 
-            <!-- 연결선 (두근두근 메모리얼 -> 투하트) -->
-            <div class="vertical-connector">
-                <div class="dashed-line"></div>
-                <div class="connector-label">기획적 도전 (제작자 증언)</div>
-                <div class="arrow-down">▼</div>
+            <!-- 3. 투하트 (두근두근 메모리얼에서 연결됨) -->
+            <div class="game-card card-toheart relative-box">
+                <div class="connector-badge">⬇ 기획적 도전 (제작자 증언)</div>
+                <img src="../assets/ToHeart.webp" alt="투하트" class="game-img">
+                <div class="game-info">
+                    <h3>3. 『ToHeart (투하트)』 <span class="year">(1997)</span></h3>
+                    <div class="genre-tag tag-blue">일상과 개별 서사의 매력</div>
+                    <ul>
+                        <li><span class="game-kw">일상</span>의 묘사로 캐릭터에 대한 <span class="game-kw">애착</span> 극대화.</li>
+                        <li><strong>[장르적 계승]</strong> "청춘 학원물로서 『두근두근 메모리얼』에 도전한다"는 구상에서 출발.</li>
+                    </ul>
+                </div>
             </div>
 
-            <!-- 왼쪽 하단: 투하트 -->
-            <div class="game-card toheart">
-                <h3>3. 『ToHeart (투하트)』 <span class="year">(1997)</span></h3>
-                <div class="genre-tag">일상과 개별 서사의 매력</div>
-                <ul>
-                    <li>인물과 함께 보내는 <span class="game-kw">일상</span>, 특유의 말투와 습관을 세밀하게 묘사하여 캐릭터에 대한 <span class="game-kw">애착</span>을 극대화.</li>
-                    <li><strong>[장르적 계승]</strong> "청춘 학원물로서 『두근두근 메모리얼』에 도전한다"는 구상에서 출발.</li>
-                </ul>
+            <!-- 4. 핵심 상호작용 개념도 -->
+            <div class="concept-core-box">
+                <h3 class="core-title">게임 매체의 핵심: 상호작용 (Interaction)</h3>
+                <div class="interaction-flow">
+                    <div class="entity player-entity">플레이어<br><span class="entity-sub">선택과 조작</span></div>
+                    <div class="interaction-arrow">
+                        <span class="arrow-icon">⬌</span>
+                        <span class="game-kw">개별화된 서사</span>
+                    </div>
+                    <div class="entity character-entity">캐릭터<br><span class="entity-sub">반응과 관계 변화</span></div>
+                </div>
             </div>
 
         </div>
