@@ -1242,3 +1242,2549 @@ body {
     color: #94a3b8;
     line-height: 1;
 }
+
+/* --- 본문 슬라이드 10 (Slide 11) 전용 스타일 (라이트 테마 / 3분할 임팩트 카드) --- */
+
+.three-cards-layout {
+    display: flex;
+    gap: 20px;
+    height: calc(100% - 80px); /* 공간 꽉 채우기 */
+    align-items: stretch;
+}
+
+.pb-15 { padding-bottom: 15px; } /* 하단 뱃지가 잘리지 않도록 여백 추가 */
+
+.impact-card {
+    flex: 1;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    position: relative; /* 뱃지의 기준점 */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.impact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* 작품별 상단 포인트 컬러 */
+.border-higurashi { border-top: 5px solid #b91c1c; } /* 피/미스터리 레드 */
+.border-muvluv { border-top: 5px solid #4338ca; } /* 메카닉 블루 */
+.border-steinsgate { border-top: 5px solid #d97706; } /* 톱니바퀴 오렌지 */
+
+/* 🎯 추가된 썸네일 이미지 스타일 */
+.impact-img {
+    width: 100%;
+    height: 140px;
+    object-fit: contain; /* 비율 유지하며 잘림 방지 */
+    margin-bottom: 15px;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
+
+.impact-card h3 {
+    font-size: 1.1rem;
+    color: #1e293b;
+    text-align: center;
+    margin: 0 0 8px 0;
+}
+
+.impact-card .year {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: normal;
+}
+
+.sub-theme {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: center;
+    background-color: #f8fafc;
+    color: #475569;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    border: 1px solid #e2e8f0;
+}
+.impact-card {
+    flex: 1;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 15px 20px; /* 상단 여백을 20px -> 15px로 줄여 위로 끌어올림 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    position: relative; 
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.impact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* 작품별 상단 포인트 컬러 */
+.border-higurashi { border-top: 5px solid #b91c1c; } 
+.border-muvluv { border-top: 5px solid #4338ca; } 
+.border-steinsgate { border-top: 5px solid #d97706; } 
+
+/* 🎯 썸네일 이미지 크기 확대 및 여백 축소 */
+.impact-img {
+    width: 100%;
+    height: 150px; /* 높이를 살짝 더 키움 */
+    object-fit: contain;
+    margin-bottom: 10px; /* 이미지와 텍스트 사이 간격을 좁힘 */
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
+
+.impact-card h3 {
+    font-size: 1.1rem;
+    color: #1e293b;
+    text-align: center;
+    margin: 0 0 8px 0;
+}
+
+.impact-card .year {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: normal;
+}
+
+.sub-theme {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: center;
+    background-color: #f8fafc;
+    color: #475569;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    border: 1px solid #e2e8f0;
+}
+
+/* 🎯 리스트가 억지로 늘어나지 않도록 고정 */
+.impact-card ul {
+    padding-left: 20px;
+    margin: 0 0 15px 0;
+    flex: none; /* 이전 코드의 늘어남 원인 제거 */
+}
+
+.impact-card li {
+    font-size: 0.9rem;
+    color: #334155;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    word-break: keep-all;
+}
+
+/* 🎯 인용구 박스가 스스로 늘어나지 않고, 얌전하게 바닥으로만 밀리게 설정 */
+.quote-box {
+    margin-top: auto; /* 남는 공간을 모두 위쪽으로 밀어내어 박스를 바닥에 고정 */
+    background-color: #f1f5f9;
+    border-left: 4px solid #cbd5e1;
+    padding: 12px 15px;
+    font-size: 0.85rem;
+    color: #475569;
+    line-height: 1.4;
+    border-radius: 0 6px 6px 0;
+}
+
+.quote-box strong {
+    color: #1e293b;
+    display: inline-block;
+    margin-bottom: 70px;
+}
+
+/* --- 본문 슬라이드 11 (Slide 12) 전용 스타일 (라이트 테마 / 가로 패널 & 순환) --- */
+
+/* --- 본문 슬라이드 11 (Slide 12) 전용 스타일: 1, 2번 전용 2단 레이아웃 --- */
+
+.two-panels-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: calc(100% - 90px);
+    justify-content: center;
+}
+
+.large-h-panel {
+    flex: 1;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 24px 32px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.large-h-panel:hover {
+    transform: translateX(4px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+/* 좌측 포인트 컬러 바 */
+.large-h-panel.panel-haruhi { 
+    border-left: 6px solid #eab308; 
+}
+
+.large-h-panel.panel-sliceoflife { 
+    border-left: 6px solid #ec4899; 
+}
+
+/* 1번 하루히 포스터 크기 대폭 확대 */
+.large-panel-img {
+    width: 170px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15));
+    flex-shrink: 0;
+}
+
+/* 2번 러키스타 & 케이온 이미지 그룹 확대 */
+.panel-img-group {
+    display: flex;
+    gap: 14px;
+    flex-shrink: 0;
+}
+
+.large-panel-img-half {
+    width: 140px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15));
+}
+
+/* 텍스트 영역 */
+.panel-text {
+    flex: 1;
+}
+
+.panel-text h3 {
+    font-size: 1.35rem;
+    color: #1e293b;
+    margin: 0 0 14px 0;
+    font-weight: 800;
+}
+
+.panel-text .year {
+    font-size: 1rem;
+    color: #64748b;
+    font-weight: normal;
+}
+
+.panel-text ul {
+    padding-left: 22px;
+    margin: 0;
+}
+
+.panel-text li {
+    font-size: 1.05rem;
+    color: #334155;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    word-break: keep-all;
+}
+
+.highlight-word {
+    font-weight: 700;
+    color: #0f172a;
+    background: linear-gradient(180deg, transparent 60%, rgba(250, 204, 21, 0.45) 60%);
+    padding: 0 3px;
+}
+
+/* --- 인트로 레이어 스타일 --- */
+.intro-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff; /* 화이트 테마 유지 */
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease;
+}
+
+.intro-title {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #1e293b;
+    margin-bottom: 40px;
+    letter-spacing: -1px;
+}
+
+.gif-container {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+.gif-box {
+    text-align: center;
+}
+
+.gif-box img {
+    width: 400px; /* 움짤을 큼직하게 배치 */
+    border-radius: 12px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    margin-bottom: 15px;
+}
+
+.gif-box p {
+    font-size: 1rem;
+    color: #64748b;
+    font-weight: bold;
+}
+
+.click-guide {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* --- 본문 등장 애니메이션 --- */
+.main-content-hidden {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.main-content-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- 본문 슬라이드 12 (Slide 13) 전용 스타일 (소년만화 대비 & 화이트 테마) --- */
+/* --- 본문 슬라이드 12 (Slide 13) 전용 스타일 (여백 압축 및 배너 상승 버전) --- */
+
+.shonen-split {
+    display: flex;
+    gap: 24px;
+    margin-top: 10px;
+    margin-bottom: 16px; /* 하단 배너와의 간격 축소 */
+}
+
+.shonen-card {
+    flex: 1;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 18px 22px; /* 상하 패딩 축소 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.shonen-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+/* 상단 포인트 컬러 바 */
+.card-fma {
+    border-top: 5px solid #dc2626; /* 강철: 진한 레드 */
+}
+
+.card-deathnote {
+    border-top: 5px solid #1e293b; /* 데스노트: 다크 슬레이트 */
+}
+
+/* 카드 상단 헤더: 포스터 + 타이틀 */
+.shonen-card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.shonen-poster {
+    width: 90px;
+    height: 125px;
+    object-fit: cover;
+    border-radius: 8px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
+    flex-shrink: 0;
+}
+
+.shonen-meta {
+    flex: 1;
+}
+
+.shonen-meta h3 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 0 0 6px 0;
+}
+
+.shonen-meta .year {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: normal;
+}
+
+.shonen-sub {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #475569;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+/* 본문 리스트 여백 최소화 */
+.shonen-card ul {
+    padding-left: 20px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* 항목 간 간격 타이트하게 */
+}
+
+.shonen-card li {
+    font-size: 0.9rem;
+    color: #334155;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+
+/* 키워드 하이라이트 */
+.shonen-kw {
+    font-weight: 700;
+    color: #b91c1c;
+    background-color: #fee2e2;
+    padding: 1px 4px;
+    border-radius: 4px;
+}
+
+.shonen-kw-blue {
+    font-weight: 700;
+    color: #1d4ed8;
+    background-color: #dbeafe;
+    padding: 1px 6px;
+    border-radius: 4px;
+}
+
+/* 🎯 위로 올라온 하단 배너 */
+.shonen-banner {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px 18px; /* 패딩 축소 */
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.shonen-banner-badge {
+    background-color: #1e293b;
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.shonen-banner p {
+    font-size: 0.9rem;
+    color: #334155;
+    line-height: 1.4;
+    margin: 0;
+    word-break: keep-all;
+}
+
+/* --- 본문 슬라이드 13 전용 스타일 (프로슈머 & 동방/미쿠 화이트 테마) --- */
+
+/* --- 본문 슬라이드 13 전용 스타일 (좌측 텍스트 몰기 / 우측 이미지 그리드) --- */
+
+/* --- 본문 슬라이드 13 전용 스타일 (상하 간격 축소 및 2x2 개별 사진 분리) --- */
+
+.split-prosumer-layout {
+    display: flex;
+    gap: 24px;
+    height: calc(100% - 85px);
+    align-items: stretch;
+}
+
+/* 🎯 좌측 텍스트 몰기 (상하 간격 타이트하게 압축) */
+.prosumer-left-text {
+    flex: 1.1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px; /* 기존 12px -> 8px로 간격 대폭 축소 */
+}
+
+.p-text-block {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px 18px; /* 패딩 축소로 컴팩트화 */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.border-touhou {
+    border-left: 5px solid #e11d48; /* 동방: 레드 */
+}
+
+.border-miku {
+    border-left: 5px solid #06b6d4; /* 미쿠: 민트 블루 */
+}
+
+.border-nicovideo {
+    border-left: 5px solid #3b82f6; /* 니코동: 블루 */
+}
+
+.p-text-block h3 {
+    font-size: 1.02rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 0 0 6px 0;
+}
+
+.p-text-block .year {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: normal;
+}
+
+.p-text-block ul {
+    padding-left: 18px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.p-text-block li {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.4;
+    word-break: keep-all;
+}
+
+.prosumer-kw {
+    font-weight: 700;
+    color: #e11d48;
+    background-color: #ffe4e6;
+    padding: 1px 4px;
+    border-radius: 4px;
+}
+
+/* 🎯 우측 2x2 이미지 그리드 (각 카드 1개씩 단독 전시) */
+.prosumer-right-gallery {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 12px;
+}
+
+.gallery-card {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.gallery-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: rgba(30, 41, 59, 0.85);
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 6px;
+    z-index: 2;
+}
+
+/* 일반 사각형 이미지 (게임 화면 / 멜트) */
+.gallery-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-top: 14px;
+}
+
+/* 캐릭터 단독 카드 배경 및 이미지 */
+.chara-single-card {
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.gallery-chara-single {
+    max-height: 140px; /* 1명씩 단독으로 들어가므로 큼직하게 확대 */
+    width: auto;
+    object-fit: contain;
+    margin-top: 14px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+/* --- 본문 슬라이드 14 전용 스타일 (다크 판타지 & 장르 재해석 화이트 테마) --- */
+
+.dark-fantasy-split {
+    display: flex;
+    gap: 24px;
+    height: calc(100% - 90px);
+    align-items: stretch;
+}
+
+.df-card {
+    flex: 1;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 22px 26px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.df-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+}
+
+/* 테마별 상단 포인트 컬러 바 */
+.card-aot {
+    border-top: 5px solid #78350f; /* 진격거: 거인/벽 느낌의 딥 브라운 */
+}
+
+.card-madoka {
+    border-top: 5px solid #db2777; /* 마도카: 마법소녀 딥 핑크 */
+}
+
+/* 상단 헤더 (포스터 + 타이틀/소제목) */
+.df-card-top {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 18px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.df-poster {
+    width: 105px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.15));
+    flex-shrink: 0;
+}
+
+.df-meta {
+    flex: 1;
+}
+
+.df-meta h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 8px 0;
+}
+
+.df-meta .year {
+    font-size: 0.9rem;
+    color: #64748b;
+    font-weight: normal;
+}
+
+.df-sub {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #334155;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+/* 리스트 내용 */
+.df-card ul {
+    padding-left: 20px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.df-card li {
+    font-size: 0.95rem;
+    color: #334155;
+    line-height: 1.55;
+    word-break: keep-all;
+}
+
+/* 매체 간 교류 강조 뱃지 태그 */
+.cross-media-highlight {
+    color: #2563eb;
+    background-color: #eff6ff;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    margin-right: 4px;
+}
+
+/* --- 본문 슬라이드 15 (Slide 16) 전용 스타일 (게임 문법 & 철학적 내러티브 화이트 테마) --- */
+
+.gameplay-split {
+    display: flex;
+    gap: 24px;
+    height: calc(100% - 90px);
+    align-items: stretch;
+}
+
+.gp-card {
+    flex: 1;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 22px 26px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gp-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+}
+
+/* 테마별 상단 포인트 컬러 바 */
+.card-persona {
+    border-top: 5px solid #dc2626; /* 페르소나 5: 강렬한 시그니처 레드 */
+}
+
+.card-nier {
+    border-top: 5px solid #64748b; /* 니어: 모노톤 슬레이트 그레이 */
+}
+
+/* 카드 상단 헤더: 포스터 + 타이틀 메타 */
+.gp-card-top {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 18px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.gp-poster {
+    width: 105px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.15));
+    flex-shrink: 0;
+}
+
+.gp-meta {
+    flex: 1;
+}
+
+.gp-meta h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 8px 0;
+}
+
+.gp-meta .year {
+    font-size: 0.9rem;
+    color: #64748b;
+    font-weight: normal;
+}
+
+.gp-sub {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #334155;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+/* 본문 리스트 */
+.gp-card ul {
+    padding-left: 20px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.gp-card li {
+    font-size: 0.93rem;
+    color: #334155;
+    line-height: 1.55;
+    word-break: keep-all;
+}
+
+/* 키워드 하이라이트 */
+.game-grammar-kw {
+    font-weight: 700;
+    color: #0f172a;
+    background-color: #f1f5f9;
+    border-bottom: 2px solid #94a3b8;
+    padding: 0 4px;
+}
+
+/* --- 본문 슬라이드 16 (Slide 17) 전용 스타일 (일상·아이돌·관계성 화이트 테마) --- */
+
+.idol-cards-layout {
+    display: flex;
+    gap: 20px;
+    height: calc(100% - 90px);
+    align-items: stretch;
+}
+
+.idol-card {
+    flex: 1;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 18px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.idol-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+/* 테마별 상단 포인트 컬러 바 */
+.card-slice {
+    border-top: 5px solid #10b981; /* 일상물: 따뜻한 에메랄드/그린 */
+}
+
+.card-live {
+    border-top: 5px solid #f59e0b; /* 아이돌: 활기찬 오렌지/앰버 */
+}
+
+.card-relation {
+    border-top: 5px solid #8b5cf6; /* 관계성: 감각적인 바이올렛 */
+}
+
+/* 상단 영역 (이미지 듀오 + 제목) */
+.idol-card-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+/* 포스터 2장 나란히 배치 */
+.idol-img-duo {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 14px;
+    justify-content: center;
+}
+
+.idol-poster {
+    width: 82px;
+    height: 118px;
+    object-fit: cover;
+    border-radius: 6px;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.12));
+}
+
+/* 3번 관계성 카드의 상단 뱃지 박스 (이미지 높이와 균형 맞춤) */
+.relation-badge-box {
+    height: 118px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    width: 100%;
+}
+
+.rel-pill {
+    background-color: #f5f3ff;
+    border: 1px solid #ddd6fe;
+    color: #6d28d9;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.idol-card-top h3 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 6px 0;
+    line-height: 1.3;
+}
+
+.idol-sub {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #64748b;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 3px 8px;
+    border-radius: 6px;
+    word-break: keep-all;
+}
+
+/* 본문 리스트 */
+.idol-card ul {
+    padding-left: 18px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.idol-card li {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+
+/* 키워드 강조 */
+.highlight-sustain {
+    font-weight: 700;
+    color: #0f172a;
+    background: linear-gradient(180deg, transparent 60%, rgba(253, 224, 71, 0.5) 60%);
+    padding: 0 2px;
+}
+
+/* --- 본문 슬라이드 17 (Slide 18) 전용 스타일 (현실 확장 & 의인화 화이트 테마) --- */
+
+/* --- 본문 슬라이드 17 (Slide 18) 전용 스타일 (제목 상단 배치 & 사진 대형화) --- */
+
+.realworld-split {
+    display: flex;
+    gap: 24px;
+    height: calc(100% - 85px);
+    align-items: stretch;
+}
+
+.rw-card {
+    flex: 1;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 20px 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rw-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+.card-local {
+    border-top: 5px solid #059669;
+}
+
+.card-history {
+    border-top: 5px solid #0284c7;
+}
+
+/* 🎯 1, 2번 제목 영역을 최상단으로 배치 */
+.rw-title-top {
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.rw-title-top h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 6px 0;
+}
+
+.rw-sub {
+    display: inline-block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #475569;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+/* 🎯 포스터 확대 배치 영역 */
+.rw-poster-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+    border-radius: 10px;
+    padding: 12px 16px;
+}
+
+/* 기존 120px -> 170px 대폭 확대 */
+.rw-poster-large {
+    height: 170px;
+    width: auto;
+    max-width: 48%;
+    object-fit: cover;
+    border-radius: 8px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.14));
+}
+
+.rw-poster-large.single-focus {
+    max-width: 65%;
+}
+
+/* 하단 텍스트 리스트 */
+.rw-list {
+    padding-left: 20px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.rw-list li {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+
+.rw-highlight {
+    font-weight: 700;
+    color: #0f172a;
+    background: linear-gradient(180deg, transparent 60%, rgba(147, 197, 253, 0.45) 60%);
+    padding: 0 3px;
+}
+
+/* --- 본문 슬라이드 18 (Slide 19) 전용 스타일 (음악 역방향 미디어믹스 화이트 테마) --- */
+
+/* --- 본문 슬라이드 18 (Slide 19) 전용 스타일 (음악 역방향 미디어믹스 좌우 대칭) --- */
+
+/* 상단 미디어 믹스 다이어그램 */
+.music-flow-diagram {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 12px 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.flow-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.flow-label {
+    font-size: 0.78rem;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 20px;
+    min-width: 68px;
+    text-align: center;
+    background-color: #f1f5f9;
+    color: #64748b;
+}
+
+.active-label {
+    background-color: #0284c7;
+    color: #ffffff;
+}
+
+.flow-pill-node {
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+    color: #475569;
+}
+
+.highlight-flow .flow-pill-node {
+    border-color: #bae6fd;
+    background-color: #f0f9ff;
+    color: #0369a1;
+}
+
+.highlight-flow .expand-node {
+    border-color: #fbcfe8;
+    background-color: #fdf2f8;
+    color: #be185d;
+}
+
+.flow-arrow-symbol {
+    color: #94a3b8;
+    font-size: 0.85rem;
+}
+
+.active-arrow {
+    color: #0284c7;
+    font-weight: bold;
+}
+
+/* 하단 1:1 대칭 2분할 카드 레이아웃 */
+.music-split {
+    display: flex;
+    gap: 20px;
+    height: calc(100% - 195px);
+    align-items: stretch;
+}
+
+.music-card {
+    flex: 1;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 18px 22px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.music-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+.card-senbonzakura {
+    border-top: 5px solid #ec4899; /* 천본앵: 벚꽃 핑크 */
+}
+
+.card-kagerou {
+    border-top: 5px solid #ef4444; /* 카게프로: 레드 */
+}
+
+/* 카드 타이틀 */
+.music-title-top {
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.music-title-top h3 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 6px 0;
+}
+
+.music-title-top .year {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: normal;
+}
+
+.music-sub {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #475569;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.music-kw {
+    color: #0284c7;
+}
+
+/* 카드 본문 (포스터 + 텍스트) */
+.music-card-body {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.music-poster {
+    width: 105px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.14));
+    flex-shrink: 0;
+}
+
+.music-list {
+    flex: 1;
+    padding-left: 18px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.music-list li {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+
+/* --- 본문 슬라이드 19 (Slide 20) 전용 스타일 (체인소맨 & 봇치더록 화이트 테마) --- */
+
+.empathy-split {
+    display: flex;
+    gap: 24px;
+    height: calc(100% - 90px);
+    align-items: stretch;
+}
+
+.emp-card {
+    flex: 1;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 22px 26px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.emp-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+}
+
+/* 상단 포인트 컬러 바 */
+.card-chainsaw {
+    border-top: 5px solid #ea580c; /* 체인소맨: 강렬한 전기톱 오렌지 */
+}
+
+.card-bocchi {
+    border-top: 5px solid #ec4899; /* 봇치: 저지 핑크 */
+}
+
+/* 카드 헤더: 포스터 + 타이틀 메타 */
+.emp-card-top {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.emp-poster {
+    width: 105px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.14));
+    flex-shrink: 0;
+}
+
+.emp-meta {
+    flex: 1;
+}
+
+.emp-meta h3 {
+    font-size: 1.22rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 6px 0;
+}
+
+.emp-meta .year {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: normal;
+}
+
+.emp-sub {
+    display: inline-block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #475569;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+/* 본문 리스트 */
+.emp-list {
+    padding-left: 20px;
+    margin: 0 0 14px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.emp-list li {
+    font-size: 0.92rem;
+    color: #334155;
+    line-height: 1.55;
+    word-break: keep-all;
+}
+
+/* 하이라이트 */
+.empathy-kw {
+    font-weight: 700;
+    color: #c2410c;
+    background-color: #ffedd5;
+    padding: 1px 4px;
+    border-radius: 4px;
+}
+
+.empathy-kw-sub {
+    font-weight: 700;
+    color: #be185d;
+    background-color: #fce7f3;
+    padding: 1px 4px;
+    border-radius: 4px;
+}
+
+/* 봇치 카드 하단 인용 박스 */
+.emp-quote-box {
+    margin-top: auto;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.quote-tag {
+    align-self: flex-start;
+    background-color: #ec4899;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.emp-quote-box p {
+    font-size: 0.86rem;
+    color: #334155;
+    line-height: 1.45;
+    margin: 0;
+    word-break: keep-all;
+}
+
+
+/* --- 본문 슬라이드 20 (Slide 21) 전용 스타일 (문법 결합 게임 & 대형 포스터 화이트 테마) --- */
+
+.puzzle-split {
+    display: flex;
+    gap: 24px;
+    height: calc(100% - 85px);
+    align-items: stretch;
+}
+
+.puzzle-card {
+    flex: 1;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 20px 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.puzzle-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+/* 상단 테마 컬러 바 */
+.card-uma {
+    border-top: 5px solid #10b981; /* 우마무스메: 터프 그린 */
+}
+
+.card-sekai {
+    border-top: 5px solid #06b6d4; /* 프로세카: 시안 블루 */
+}
+
+/* 상단 타이틀 영역 */
+.puzzle-title-top {
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.puzzle-title-top h3 {
+    font-size: 1.18rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 6px 0;
+}
+
+.puzzle-title-top .year {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: normal;
+}
+
+.puzzle-sub {
+    display: inline-block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #475569;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.puzzle-kw {
+    color: #0284c7;
+}
+
+/* 🎯 대형 포스터 래퍼 */
+.puzzle-poster-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 14px;
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+    border-radius: 10px;
+    padding: 10px 14px;
+}
+
+/* 높이 175px로 시원하게 확대 */
+.puzzle-poster-large {
+    height: 175px;
+    width: auto;
+    max-width: 90%;
+    object-fit: cover;
+    border-radius: 8px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.14));
+}
+
+/* 하단 텍스트 리스트 */
+.puzzle-list {
+    padding-left: 20px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.puzzle-list li {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+
+/* --- 본문 슬라이드 21 (Slide 22) 전용 스타일 (보컬로이드 & J-Pop 화이트 테마) --- */
+
+/* 상단 배경 배너 */
+.jpop-intro-banner {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 12px 18px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.jpop-badge {
+    background-color: #0f172a;
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.jpop-intro-banner p {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.45;
+    margin: 0;
+    word-break: keep-all;
+}
+
+.jpop-highlight {
+    font-weight: 700;
+    color: #0284c7;
+    background-color: #e0f2fe;
+    padding: 1px 4px;
+    border-radius: 4px;
+}
+
+/* 하단 1:1 아티스트 분할 카드 */
+.artist-split {
+    display: flex;
+    gap: 20px;
+    height: calc(100% - 155px);
+    align-items: stretch;
+}
+
+.artist-card {
+    flex: 1;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 20px 22px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.artist-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+.card-yonezu {
+    border-top: 5px solid #ea580c; /* 요네즈/체인소맨: 오렌지 */
+}
+
+.card-yoasobi {
+    border-top: 5px solid #ec4899; /* 요아소비/아이돌: 핫핑크 */
+}
+
+/* 타이틀 및 프로필 루트 태그 */
+.artist-title-top {
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.artist-route-badge {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #475569;
+    background-color: #f1f5f9;
+    padding: 3px 8px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+}
+
+.artist-title-top h3 {
+    font-size: 1.18rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+}
+
+/* 본문 레이아웃 (앨범 커버 + 텍스트) */
+.artist-body {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.artist-cover {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.14));
+    flex-shrink: 0;
+}
+
+.artist-list {
+    flex: 1;
+    padding-left: 18px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.artist-list li {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+
+/* --- 본문 슬라이드 22 (Slide 23) 전용 스타일 (VTuber & 오시카츠 화이트 테마) --- */
+
+.live-eco-layout {
+    display: flex;
+    gap: 20px;
+    height: calc(100% - 90px);
+    align-items: stretch;
+}
+
+.live-card {
+    flex: 1;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 18px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.live-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+/* 상단 포인트 컬러 바 */
+.card-mobile {
+    border-top: 5px solid #3b82f6; /* 모바일: 블루 */
+}
+
+.card-vtuber {
+    border-top: 5px solid #06b6d4; /* 버튜버: 사이버 민트/시안 */
+    flex: 1.15; /* 버튜버 3명 이미지 여유를 위해 소폭 확장 */
+}
+
+.card-oshikatsu {
+    border-top: 5px solid #ec4899; /* 오시카츠: 핑크 */
+}
+
+/* 카드 상단 영역 */
+.live-card-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+/* 🎯 버튜버 3인 포스터 래퍼 */
+.vtuber-trio-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 110px;
+    margin-bottom: 12px;
+    width: 100%;
+}
+
+.vtuber-img {
+    height: 105px;
+    width: auto;
+    max-width: 31%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.12));
+    transition: transform 0.2s ease;
+}
+
+.vtuber-img:hover {
+    transform: scale(1.06);
+}
+
+/* 1번, 3번 카드 태그 박스 (버튜버 이미지 높이선과 정렬) */
+.meta-tag-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    height: 110px;
+    margin-bottom: 12px;
+    width: 100%;
+}
+
+.live-pill {
+    background-color: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.pill-pink {
+    background-color: #fdf2f8;
+    border-color: #fbcfe8;
+    color: #be185d;
+}
+
+/* 타이틀 텍스트 */
+.live-card-top h3 {
+    font-size: 1.12rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 6px 0;
+    line-height: 1.35;
+}
+
+.live-sub {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #64748b;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+/* 본문 리스트 */
+.live-list {
+    padding-left: 18px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.live-list li {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+
+/* 키워드 하이라이트 */
+.live-highlight {
+    font-weight: 700;
+    color: #0284c7;
+    background-color: #e0f2fe;
+    padding: 1px 4px;
+    border-radius: 4px;
+}
+
+/* --- 본문 슬라이드 22 (Slide 23) 전용 스타일 (글 압축 및 버튜버 대형화) --- */
+
+.live-eco-layout {
+    display: flex;
+    gap: 20px;
+    height: calc(100% - 85px);
+    align-items: stretch;
+}
+
+.live-card {
+    flex: 1;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 16px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.live-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+.card-mobile {
+    border-top: 5px solid #3b82f6;
+}
+
+.card-vtuber {
+    border-top: 5px solid #06b6d4;
+    flex: 1.25; /* 버튜버 사진 3개를 크게 키우기 위해 가로 비율 추가 확대 */
+}
+
+.card-oshikatsu {
+    border-top: 5px solid #ec4899;
+}
+
+/* 상단 영역 */
+.live-card-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+/* 🎯 버튜버 3인 포스터 래퍼: 높이를 160px로 대폭 확장 */
+.vtuber-trio-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    height: 160px; /* 기존 110px -> 160px 대폭 확장 */
+    margin-bottom: 10px;
+    width: 100%;
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+    border-radius: 10px;
+    padding: 4px;
+}
+
+.vtuber-img-large {
+    height: 152px; /* 152px로 큼직하게 전시 */
+    width: auto;
+    max-width: 31%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+    transition: transform 0.2s ease;
+}
+
+.vtuber-img-large:hover {
+    transform: scale(1.08);
+}
+
+/* 1번, 3번 카드 태그 박스 (확장된 160px 높이선에 맞춤) */
+.meta-tag-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    height: 160px; /* 버튜버 박스 높이와 통일 */
+    margin-bottom: 10px;
+    width: 100%;
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+    border-radius: 10px;
+    padding: 10px 14px;
+    box-sizing: border-box;
+}
+
+.live-pill {
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    color: #334155;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.pill-pink {
+    background-color: #fdf2f8;
+    border-color: #fbcfe8;
+    color: #be185d;
+}
+
+/* 타이틀 텍스트 */
+.live-card-top h3 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 6px 0;
+    line-height: 1.35;
+}
+
+.live-sub {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #64748b;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+/* 하단 요약 리스트 */
+.live-list {
+    padding-left: 18px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.live-list li {
+    font-size: 0.86rem;
+    color: #334155;
+    line-height: 1.45;
+    word-break: keep-all;
+}
+
+.live-highlight {
+    font-weight: 700;
+    color: #0284c7;
+    background-color: #e0f2fe;
+    padding: 1px 4px;
+    border-radius: 4px;
+}
+
+/* --- 본문 슬라이드 23 (Slide 24) 전용 스타일 (시장 간극 & 제작위원회 구조 화이트 테마) --- */
+
+.gap-split-layout {
+    display: flex;
+    gap: 24px;
+    height: calc(100% - 85px);
+    align-items: stretch;
+}
+
+.gap-panel {
+    flex: 1;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 20px 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gap-panel:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+.card-market {
+    border-top: 5px solid #0284c7; /* 시장: 신뢰의 블루 */
+}
+
+.card-structure {
+    border-top: 5px solid #ea580c; /* 구조 모순: 주의의 오렌지 */
+}
+
+/* 상단 타이틀 영역 */
+.gap-title-top {
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.gap-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background-color: #e0f2fe;
+    color: #0369a1;
+    margin-bottom: 6px;
+}
+
+.badge-orange {
+    background-color: #ffedd5;
+    color: #c2410c;
+}
+
+.gap-title-top h3 {
+    font-size: 1.18rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+}
+
+/* 🎯 좌측 누적 막대 그래프 인포그래픽 */
+.market-chart-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 16px;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.chart-main-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #475569;
+}
+
+.chart-total-val {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #0284c7;
+}
+
+.stacked-bar-track {
+    display: flex;
+    height: 48px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    border: 1px solid #cbd5e1;
+}
+
+.bar-foreign {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    font-weight: 800;
+}
+
+.bar-foreign .bar-sub {
+    font-size: 0.68rem;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.bar-domestic {
+    background: #cbd5e1;
+    color: #334155;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.market-def-duo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.def-pill {
+    font-size: 0.76rem;
+    color: #64748b;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 5px 10px;
+    border-radius: 6px;
+}
+
+.active-pill {
+    color: #0369a1;
+    border-color: #bae6fd;
+    background: #f0f9ff;
+}
+
+/* 🎯 우측 구조 다이어그램 */
+.structure-flow-diagram {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 14px;
+}
+
+.flow-step {
+    border-radius: 8px;
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #e2e8f0;
+}
+
+.step-top {
+    background-color: #f0fdf4;
+    border-color: #bbf7d0;
+}
+
+.step-top .step-tag {
+    color: #15803d;
+    font-weight: 800;
+    font-size: 0.82rem;
+}
+
+.step-mid {
+    background-color: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+.step-mid .step-tag {
+    color: #334155;
+    font-weight: 800;
+    font-size: 0.82rem;
+}
+
+.step-bot {
+    background-color: #fff1f2;
+    border-color: #fecdd3;
+}
+
+.step-bot .step-tag {
+    color: #be123c;
+    font-weight: 800;
+    font-size: 0.82rem;
+}
+
+.step-desc {
+    font-size: 0.74rem;
+    color: #64748b;
+}
+
+.flow-down-arrow {
+    text-align: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #94a3b8;
+    padding: 2px 0;
+}
+
+/* 우측 하단 개선 의제 박스 */
+.reform-agenda-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px 14px;
+}
+
+.agenda-title {
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 4px;
+}
+
+.reform-agenda-box p {
+    font-size: 0.82rem;
+    color: #334155;
+    line-height: 1.45;
+    margin: 0;
+    word-break: keep-all;
+}
+
+/* 공통 리스트 및 키워드 */
+.gap-list {
+    padding-left: 18px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.gap-list li {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+
+.gap-highlight {
+    font-weight: 700;
+    color: #0284c7;
+    background-color: #e0f2fe;
+    padding: 1px 4px;
+    border-radius: 4px;
+}
+
+/* --- 본문 슬라이드 24 (Slide 25 결론) 전용 스타일 (기회 vs 과제 화이트 테마) --- */
+
+.sust-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    height: calc(100% - 85px);
+    justify-content: space-between;
+}
+
+.sust-panel {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 14px 20px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sust-panel:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+}
+
+/* 패널 상단 타이틀 */
+.sust-panel-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.panel-num {
+    font-size: 0.82rem;
+    font-weight: 900;
+    color: #0284c7;
+    background-color: #e0f2fe;
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+
+.sust-panel-header h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+}
+
+/* 기회 vs 과제 듀얼 그리드 */
+.sust-balance-grid {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.sust-box {
+    flex: 1;
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sust-box p {
+    font-size: 0.86rem;
+    color: #334155;
+    line-height: 1.45;
+    margin: 0;
+    word-break: keep-all;
+}
+
+/* 기회 (좌측 - 에메랄드/블루 톤) */
+.box-opp {
+    background-color: #f0fdf4;
+    border: 1px solid #dcfce7;
+}
+
+.tag-opp {
+    align-self: flex-start;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #166534;
+    background-color: #bbf7d0;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+/* 중앙 VS 구분자 */
+.sust-vs-divider {
+    font-size: 0.75rem;
+    font-weight: 900;
+    color: #94a3b8;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 4px 8px;
+    border-radius: 20px;
+    flex-shrink: 0;
+}
+
+/* 과제 (우측 - 앰버/오렌지 톤) */
+.box-chal {
+    background-color: #fff7ed;
+    border: 1px solid #ffedd5;
+}
+
+.tag-chal {
+    align-self: flex-start;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #9a3412;
+    background-color: #fed7aa;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.sust-highlight {
+    font-weight: 700;
+    color: #c2410c;
+    background-color: #ffedd5;
+    padding: 0 3px;
+    border-radius: 3px;
+}
+
+/* --- 마무리 슬라이드 (Slide 26) 전용 스타일 (미니멀 화이트 테마 엔딩) --- */
+
+/* 슬라이드 내부 완전 중앙 정렬 */
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 엔딩 중앙 카드 */
+.thank-you-card {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 50px 70px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 780px;
+    width: 90%;
+    position: relative;
+    border-top: 6px solid #0284c7; /* 블루 포인트 라인 */
+}
+
+/* 상단 영문 엔드 태그 */
+.end-tag {
+    font-size: 0.8rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #0284c7;
+    background-color: #e0f2fe;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+/* 메인 감사 문구 */
+.thank-you-title {
+    font-size: 2.3rem;
+    font-weight: 900;
+    color: #0f172a;
+    margin: 0 0 14px 0;
+    letter-spacing: -0.5px;
+    word-break: keep-all;
+}
+
+/* 서브 설명 문구 */
+.thank-you-subtitle {
+    font-size: 1.05rem;
+    color: #64748b;
+    margin: 0 0 36px 0;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+
+/* Q & A 뱃지 영역 */
+.end-marker-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding-top: 24px;
+    border-top: 1px solid #f1f5f9;
+    width: 100%;
+}
+
+.qa-badge {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 800;
+    padding: 10px 28px;
+    border-radius: 30px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+    letter-spacing: 1px;
+}
+
+.qa-guide {
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+/* --- FGO 전용 슬라이드 스타일 (화이트 테마 & 골드/블루 포인트) --- */
+
+.fgo-layout {
+    display: flex;
+    gap: 26px;
+    height: calc(100% - 85px);
+    align-items: stretch;
+}
+
+/* 좌측 비주얼 패널 */
+.fgo-visual-panel {
+    flex: 0.95;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-top: 5px solid #2563eb; /* 세이버/칼데아 블루 */
+}
+
+.fgo-poster-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+    border-radius: 10px;
+    padding: 10px;
+    height: calc(100% - 130px);
+}
+
+.fgo-poster {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.15));
+}
+
+/* 좌측 하단 메트릭 태그 리스트 */
+.fgo-key-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.fgo-metric-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 5px 10px;
+}
+
+.fgo-metric-item .m-label {
+    font-size: 0.76rem;
+    font-weight: 800;
+    color: #1e40af;
+}
+
+.fgo-metric-item .m-val {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #475569;
+}
+
+/* 우측 3단 분석 카드 패널 */
+.fgo-content-panel {
+    flex: 1.3;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: space-between;
+}
+
+.fgo-card {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 14px 18px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    border-left: 4px solid #cbd5e1;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fgo-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+    border-left-color: #2563eb;
+}
+
+.fgo-card-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.fgo-badge {
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.badge-chal {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+.badge-blue {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+.fgo-card-title h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+}
+
+.fgo-card ul {
+    padding-left: 18px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.fgo-card li {
+    font-size: 0.86rem;
+    color: #334155;
+    line-height: 1.45;
+    word-break: keep-all;
+}
