@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>웹 PPT - 서브컬처 계보도 인트로</title>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body, html {
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            overflow: hidden;
+            background-color: #f8fafc;
+            font-family: 'Pretendard', sans-serif;
+            color: #0f172a;
+        }
+
+        /* 1. 시작 화면 */
+        #intro-cover {
+            position: fixed; inset: 0;
+            background: rgba(255, 255, 255, 0.98);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 1000;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        #intro-cover.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+        .cover-tag {
+            color: #0284c7; font-size: 0.9rem; font-weight: 800; letter-spacing: 3px;
+            margin-bottom: 12px; text-transform: uppercase;
+            background-color: #e0f2fe; padding: 4px 14px; border-radius: 20px;
+        }
+        .cover-title { font-size: 3.2rem; font-weight: 900; margin: 0 0 16px 0; letter-spacing: -1px; }
+        .cover-sub { font-size: 1.25rem; color: #64748b; margin: 0 0 44px 0; }
+        .btn-start {
+            padding: 18px 52px; font-size: 1.3rem; font-weight: 900;
+            color: #ffffff; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            border: none; border-radius: 40px; cursor: pointer;
+            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.35);
+            transition: transform 0.2s;
+        }
+        .btn-start:hover { transform: scale(1.06); }
+
+        /* 2. HUD 알림 바 */
+        #status-hud {
+            position: fixed; top: 24px; left: 32px;
+            background: rgba(255, 255, 255, 0.96); border: 1px solid #cbd5e1;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(8px);
+            padding: 8px 18px; border-radius: 24px;
+            font-size: 0.88rem; font-weight: 800; color: #0f172a;
+            z-index: 500; opacity: 0; transition: opacity 0.4s;
+            display: flex; align-items: center; gap: 10px;
+        }
+        #status-hud.show { opacity: 1; }
+        .hud-dot { width: 9px; height: 9px; border-radius: 50%; background: #0284c7; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { transform: scale(0.8); opacity: 0.5; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.8); opacity: 0.5; } }
+
+        /* 3. 뷰포트 & 월드 */
+        #viewport {
+            position: absolute; inset: 0;
+            overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        #tree-world {
+            position: absolute;
+            width: 5500px;
+            height: 1800px;
+            top: 50%; left: 50%;
+            margin-left: -2750px;
+            margin-top: -900px;
+            transform-origin: center center;
+            transform: translate3d(0, 0, 0) scale(1);
+            transition: transform 1.3s cubic-bezier(0.25, 1, 0.35, 1);
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        /* 4. 부드러운 SVG 브랜치 레이어 */
+        #tree-svg-layer {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            pointer-events: none; z-index: 0;
+        }
+        .tree-path {
+            fill: none;
+            stroke: #cbd5e1;
+            stroke-width: 4px;
+            stroke-dasharray: 8 6;
+            transition: stroke 0.5s, stroke-width 0.5s;
+        }
+        .tree-path.active-path {
+            stroke: #0284c7;
+            stroke-width: 6px;
+            stroke-dasharray: none;
+        }
+
+        /* 5. 공통 조상 통합 마더 박스 */
+        .ancestor-super-card {
+            width: 1300px;
+            background: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 26px;
+            padding: 24px 34px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            display: flex; flex-direction: column; gap: 18px;
+            z-index: 10; margin-top: 80px;
+            opacity: 0.2;
+            transition: opacity 0.6s, border-color 0.6s, box-shadow 0.6s;
+        }
+        .ancestor-super-card.active-sector {
+            opacity: 1;
+            border-color: #0284c7;
+            box-shadow: 0 16px 45px rgba(2, 132, 199, 0.15);
+        }
+        .ancestor-header {
+            font-size: 1.35rem; font-weight: 900; text-align: center;
+            padding: 10px 16px; border-radius: 12px; color: #ffffff;
+            background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+        }
+
+        .ancestor-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .anc-phase-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 16px 20px;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .anc-phase-badge {
+            align-self: flex-start;
+            font-size: 0.8rem; font-weight: 800; color: #0369a1;
+            background: #e0f2fe; padding: 3px 10px; border-radius: 12px;
+        }
+        .anc-row { display: flex; flex-direction: column; gap: 8px; }
+
+        /* 6. 5대 독립 줄기 섹터 */
+        .branches-super-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 140px;
+            margin-top: 100px;
+            z-index: 10;
+        }
+        .branch-sector {
+            width: 780px;
+            display: flex; flex-direction: column;
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 24px;
+            padding: 24px 22px 28px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+            opacity: 0.15;
+            transition: opacity 0.6s, border-color 0.6s, box-shadow 0.6s;
+        }
+        .branch-sector.active-sector {
+            opacity: 1;
+            border-color: #94a3b8;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+        }
+
+        .sector-header {
+            font-size: 1.35rem; font-weight: 900; text-align: center;
+            padding: 12px 18px; border-radius: 12px; margin-bottom: 16px; color: #ffffff;
+        }
+        .col-dark .sector-header { background: #e11d48; }
+        .col-sf .sector-header { background: #2563eb; }
+        .col-vn .sector-header { background: #7c3aed; }
+        .col-moe .sector-header { background: #db2777; }
+        .col-voc .sector-header { background: #059669; }
+
+        /* 7. 트리 내부 수직 계보 연결선 구조 */
+        .tree-branch-flow {
+            display: flex; flex-direction: column; align-items: center; width: 100%;
+        }
+        .tree-stem-line {
+            width: 2px; height: 14px; background-color: #cbd5e1;
+            position: relative; transition: background-color 0.3s;
+        }
+        .tree-stem-line.active { background-color: #0284c7; }
+        .tree-stem-line::after {
+            content: '▼'; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
+            font-size: 8px; color: #cbd5e1;
+        }
+        .tree-stem-line.active::after { color: #0284c7; }
+
+        /* 노드 디자인 */
+        .node {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 10px 14px;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+            width: 100%;
+            opacity: 0;
+            transform: translateY(14px) scale(0.96);
+            transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.25s, box-shadow 0.25s;
+        }
+        .node.pop-in {
+            opacity: 1 !important;
+            transform: translateY(0) scale(1) !important;
+            border-color: #0284c7 !important;
+            box-shadow: 0 6px 16px rgba(2, 132, 199, 0.15) !important;
+        }
+        .node.passed {
+            border-color: #cbd5e1 !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02) !important;
+        }
+
+        .n-title { font-size: 1.08rem; font-weight: 900; color: #0f172a; }
+        .n-sub { font-size: 0.8rem; font-weight: 600; color: #64748b; margin-top: 2px; }
+
+        /* 버튼류 */
+        #skip-btn {
+            position: fixed; bottom: 30px; right: 40px;
+            background: #ffffff; border: 1px solid #cbd5e1;
+            color: #475569; padding: 10px 22px; border-radius: 30px; font-weight: 700;
+            cursor: pointer; z-index: 500; opacity: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: opacity 0.5s;
+        }
+        #skip-btn.show { opacity: 1; }
+        #skip-btn:hover { transform: scale(1.05); color: #0f172a; }
+
+        #next-slide-btn {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: #0284c7; color: #ffffff; padding: 15px 40px; border-radius: 40px;
+            font-size: 1.15rem; font-weight: 900; border: none; cursor: pointer;
+            box-shadow: 0 10px 30px rgba(2, 132, 199, 0.4);
+            opacity: 0; pointer-events: none; transition: opacity 0.8s ease, transform 0.3s;
+            z-index: 600;
+        }
+        #next-slide-btn.show { opacity: 1; pointer-events: auto; }
+        #next-slide-btn:hover { transform: translateX(-50%) scale(1.06); background: #0369a1; }
+    </style>
+</head>
+<body data-next="slide01.html">
+
+    <!-- 1. 시작 화면 -->
+    <div id="intro-cover">
+        <div class="cover-tag">Subculture Media Genealogy</div>
+        <h1 class="cover-title">일본 서브컬처 미디어 진화사</h1>
+        <p class="cover-sub">1960년대 원류부터 2020년대 프로슈머 생태계까지의 계보</p>
+        <button class="btn-start" onclick="startTreeCinematic()">START</button>
+    </div>
+
+    <!-- 2. HUD 바 -->
+    <div id="status-hud">
+        <span class="hud-dot"></span>
+        <span id="hud-text">계보도 탐색 준비 중...</span>
+    </div>
+
+    <button id="skip-btn" onclick="skipToFullView()">애니메이션 건너뛰기</button>
+    <button id="next-slide-btn" onclick="goToNextSlide()">본문 발표 시작하기 ➔</button>
+
+    <!-- 3. 가상 카메라 뷰포트 & 월드 -->
+    <div id="viewport">
+        <div id="tree-world">
+
+            <!-- SVG 곡선 브랜치 레이어 -->
+            <svg id="tree-svg-layer">
+                <path id="path-1" class="tree-path" d="M 2750 500 C 2750 600, 530 560, 530 670" />
+                <path id="path-2" class="tree-path" d="M 2750 500 C 2750 590, 1640 570, 1640 670" />
+                <path id="path-3" class="tree-path" d="M 2750 500 C 2750 580, 2750 600, 2750 670" />
+                <path id="path-4" class="tree-path" d="M 2750 500 C 2750 590, 3860 570, 3860 670" />
+                <path id="path-5" class="tree-path" d="M 2750 500 C 2750 600, 4970 560, 4970 670" />
+            </svg>
+
+            <!-- 공통 원류 마더 카드 -->
+            <div class="ancestor-super-card" id="ancestor-card">
+                <div class="ancestor-header">공통의 뿌리: 원류와 장르 문법의 체계화 (1960~80s)</div>
+                <div class="ancestor-grid">
+                    
+                    <div class="anc-phase-box">
+                        <div class="anc-phase-badge">Phase 1. 원류 / 고전기 (1960~70s)</div>
+                        <div class="anc-row">
+                            <div class="node anc-node"><div class="n-title">철완 아톰</div><div class="n-sub">SF · 로봇 · 인간성의 원류</div></div>
+                            <div class="node anc-node"><div class="n-title">루팡 3세</div><div class="n-sub">성인 서사 · 스릴러 · 피카레스크</div></div>
+                            <div class="node anc-node"><div class="n-title">데빌맨</div><div class="n-sub">다크 판타지 · 종말론의 기원</div></div>
+                        </div>
+                    </div>
+
+                    <div class="anc-phase-box">
+                        <div class="anc-phase-badge">Phase 2. 체계화 및 분화기 (1980s)</div>
+                        <div class="anc-row">
+                            <div class="node anc-node"><div class="n-title">기동전사 건담 (1979)</div><div class="n-sub">리얼로봇 · 복합 전쟁서사</div></div>
+                            <div class="node anc-node"><div class="n-title">시끌별 녀석들 / 마크로스</div><div class="n-sub">모에 원형 · SF 융합 미디어믹스</div></div>
+                            <div class="node anc-node"><div class="n-title">북두의 권 (1983)</div><div class="n-sub">포스트 아포칼립스 액션</div></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 5대 독립 줄기 -->
+            <div class="branches-super-row">
+                
+                <!-- 줄기 1: 소년·다크 -->
+                <div class="branch-sector col-dark" id="sector-1">
+                    <div class="sector-header">줄기 1: 소년 만화 및 다크 판타지</div>
+                    <div class="tree-branch-flow">
+                        <div class="node sec1-node"><div class="n-title">드래곤볼 / 죠죠의 기묘한 모험 (80s)</div><div class="n-sub">왕도 배틀 및 능력자 배틀 문법 구축</div></div>
+                        <div class="tree-stem-line stem-1"></div>
+                        <div class="node sec1-node"><div class="n-title">기생수 / 베르세르크 (80s)</div><div class="n-sub">인간성의 회의와 처절한 생존 투쟁</div></div>
+                        <div class="tree-stem-line stem-1"></div>
+                        <div class="node sec1-node"><div class="n-title">원피스 / 나루토 / 블리치 (90s~00s)</div><div class="n-sub">소년점프 황금기 주도</div></div>
+                        <div class="tree-stem-line stem-1"></div>
+                        <div class="node sec1-node"><div class="n-title">강철의 연금술사 / 데스노트 (00s)</div><div class="n-sub">국가 폭력 성찰 / 정의 의심과 사적 제재</div></div>
+                        <div class="tree-stem-line stem-1"></div>
+                        <div class="node sec1-node"><div class="n-title">도쿄 구울 / 진격의 거인 (10s)</div><div class="n-sub">정체성 고뇌 / 선악 구도 해체와 증오 연쇄</div></div>
+                        <div class="tree-stem-line stem-1"></div>
+                        <div class="node sec1-node"><div class="n-title">체인소 맨 / 귀멸의 칼날 (10s~)</div><div class="n-sub">원초적 욕망과 안티히어로 / 다크+왕도</div></div>
+                    </div>
+                </div>
+
+                <!-- 줄기 2: SF·세카이 -->
+                <div class="branch-sector col-sf" id="sector-2">
+                    <div class="sector-header">줄기 2: SF, 메카닉, 세카이계</div>
+                    <div class="tree-branch-flow">
+                        <div class="node sec2-node"><div class="n-title">신세기 에반게리온 (1995)</div><div class="n-sub">거대 서사의 붕괴와 내면 자아 탐구</div></div>
+                        <div class="tree-stem-line stem-2"></div>
+                        <div class="node sec2-node"><div class="n-title">공각기동대 / 카우보이 비밥 (90s)</div><div class="n-sub">전뇌·정체성 철학 / 하드보일드 느와르</div></div>
+                        <div class="tree-stem-line stem-2"></div>
+                        <div class="node sec2-node"><div class="n-title">최종병기 그녀 / 별의 목소리 (00s)</div><div class="n-sub">세카이계(セカイ系)의 폭발 (너와 나 ↔ 세계 멸망)</div></div>
+                        <div class="tree-stem-line stem-2"></div>
+                        <div class="node sec2-node"><div class="n-title">이리야의 하늘, UFO의 여름 (00s)</div><div class="n-sub">일상과 가혹한 전쟁의 괴리</div></div>
+                        <div class="tree-stem-line stem-2"></div>
+                        <div class="node sec2-node"><div class="n-title">니어: 오토마타 (2017)</div><div class="n-sub">조작 경험과 다회차 플레이 통한 실존주의 질문</div></div>
+                    </div>
+                </div>
+
+                <!-- 줄기 3: 비주얼 노벨 -->
+                <div class="branch-sector col-vn" id="sector-3">
+                    <div class="sector-header">줄기 3: 연애 시뮬레이션 및 비주얼 노벨</div>
+                    <div class="tree-branch-flow">
+                        <div class="node sec3-node"><div class="n-title">동급생 / 두근두근 메모리얼 (90s)</div><div class="n-sub">학원 연애 시뮬레이션 기틀 확립</div></div>
+                        <div class="tree-stem-line stem-3"></div>
+                        <div class="node sec3-node"><div class="n-title">ToHeart / Key (Kanon, CLANNAD)</div><div class="n-sub">일상 애착 극대화 ➔ 상실과 구원의 감정 서사</div></div>
+                        <div class="tree-stem-line stem-3"></div>
+                        <div class="node sec3-node"><div class="n-title">월희 / Fate/stay night (00s)</div><div class="n-sub">나스버스 고유명사 세계관 및 다중 루트 탐구</div></div>
+                        <div class="tree-stem-line stem-3"></div>
+                        <div class="node sec3-node"><div class="n-title">마브러브 얼터너티브 / 쓰르라미 (00s)</div><div class="n-sub">절망적 전환(진격거 영향) / 팬덤 공동 추리</div></div>
+                        <div class="tree-stem-line stem-3"></div>
+                        <div class="node sec3-node"><div class="n-title">슈타인즈 게이트 (2009)</div><div class="n-sub">시간 SF + 서브컬처 문화의 완벽한 융합</div></div>
+                        <div class="tree-stem-line stem-3"></div>
+                        <div class="node sec3-node"><div class="n-title">Fate/Grand Order (2015~)</div><div class="n-sub">모바일 텍스트 서사의 복권과 글로벌 팬덤 경제</div></div>
+                    </div>
+                </div>
+
+                <!-- 줄기 4: 모에·일상·아이돌 -->
+                <div class="branch-sector col-moe" id="sector-4">
+                    <div class="sector-header">줄기 4: 마법소녀, 일상계, 아이돌, 현실 확장</div>
+                    <div class="tree-branch-flow">
+                        <div class="node sec4-node"><div class="n-title">세일러 문 / 카드캡터 사쿠라 (90s)</div><div class="n-sub">미소녀 전사 및 마법소녀 장르 정립</div></div>
+                        <div class="tree-stem-line stem-4"></div>
+                        <div class="node sec4-node"><div class="n-title">스즈미야 하루히 / 러키스타 / 케이온!</div><div class="n-sub">교토 애니메이션 3부작, 일상성 소비와 밈 확산</div></div>
+                        <div class="tree-stem-line stem-4"></div>
+                        <div class="node sec4-node"><div class="n-title">마법소녀 마도카☆마기카 (2011)</div><div class="n-sub">장르 관습 해체 및 계약·희생의 다크 판타지</div></div>
+                        <div class="tree-stem-line stem-4"></div>
+                        <div class="node sec4-node"><div class="n-title">아이돌마스터 / 러브라이브! (10s)</div><div class="n-sub">캐릭터 + 성우 라이브의 현실 동기화 무대</div></div>
+                        <div class="tree-stem-line stem-4"></div>
+                        <div class="node sec4-node"><div class="n-title">걸즈 앤 판처 / 함대 컬렉션 (10s)</div><div class="n-sub">성지순례 지역 연대 및 역사적 사물 모에화</div></div>
+                        <div class="tree-stem-line stem-4"></div>
+                        <div class="node sec4-node"><div class="n-title">우마무스메 / 최애의 아이 / 봇치 더 록!</div><div class="n-sub">실제 스포츠 고증 / 현대 연예계 / 오시카츠 문화</div></div>
+                    </div>
+                </div>
+
+                <!-- 줄기 5: 프로슈머 -->
+                <div class="branch-sector col-voc" id="sector-5">
+                    <div class="sector-header">줄기 5: 프로슈머 생태계 및 보컬로이드</div>
+                    <div class="tree-branch-flow">
+                        <div class="node sec5-node"><div class="n-title">동방 프로젝트 (1996~, ZUN)</div><div class="n-sub">여백의 미학, 팬 2차 창작 생태계의 무한 팽창</div></div>
+                        <div class="tree-stem-line stem-5"></div>
+                        <div class="node sec5-node"><div class="n-title">하츠네 미쿠 / 멜트 (2007)</div><div class="n-sub">백지 캔버스 싱어, 커버 문화와 창작 연쇄 폭발</div></div>
+                        <div class="tree-stem-line stem-5"></div>
+                        <div class="node sec5-node"><div class="n-title">천본앵 / 카게로우 프로젝트 (11s)</div><div class="n-sub">대중 가라오케 석권 / 음악 원천 역방향 미디어믹스</div></div>
+                        <div class="tree-stem-line stem-5"></div>
+                        <div class="node sec5-node"><div class="n-title">프로젝트 세카이 (2020)</div><div class="n-sub">보컬로이드 음악 유산 + 모바일 리듬 게임 융합</div></div>
+                        <div class="tree-stem-line stem-5"></div>
+                        <div class="node sec5-node"><div class="n-title">요네즈 켄시 / YOASOBI (2020s)</div><div class="n-sub">보컬로이드 P 출신의 J-Pop 주류 장악 및 빌보드 1위</div></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 💡 반응형 완벽 피팅 알고리즘 적용 스크립트 -->
+    <script>
+        const world = document.getElementById('tree-world');
+        const cover = document.getElementById('intro-cover');
+        const hud = document.getElementById('status-hud');
+        const hudText = document.getElementById('hud-text');
+        const skipBtn = document.getElementById('skip-btn');
+        const nextBtn = document.getElementById('next-slide-btn');
+
+        let isSkipped = false;
+        const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+        // 🎯 현재 사용자 화면 해상도에 맞춰 '절대 잘리지 않는 배율' 동적 계산
+        function getOptimalFullScale() {
+            const worldW = 5500;
+            const worldH = 1800;
+            const viewW = window.innerWidth;
+            const viewH = window.innerHeight;
+
+            // 가로와 세로 중 더 좁은 쪽에 맞추고, 92% 안전 여백 적용
+            const scaleX = (viewW / worldW) * 0.92;
+            const scaleY = (viewH / worldH) * 0.90;
+            return Math.min(scaleX, scaleY);
+        }
+
+        function moveCamera(x, y, scale, duration = 1.3) {
+            world.style.transition = `transform ${duration}s cubic-bezier(0.22, 1, 0.36, 1)`;
+            world.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
+        }
+
+        async function popNodesSequence(nodeSelector, stemSelector = null, interval = 140) {
+            const nodes = document.querySelectorAll(nodeSelector);
+            const stems = stemSelector ? document.querySelectorAll(stemSelector) : [];
+            for (let i = 0; i < nodes.length; i++) {
+                if (isSkipped) break;
+                nodes[i].classList.add('pop-in');
+                if (stems[i]) stems[i].classList.add('active');
+                await sleep(interval);
+            }
+        }
+
+        function settleSector(sectorId, nodeSelector) {
+            const sec = document.getElementById(sectorId);
+            if (sec) sec.classList.remove('active-sector');
+            document.querySelectorAll(nodeSelector).forEach(el => el.classList.add('passed'));
+        }
+
+        function skipToFullView() {
+            isSkipped = true;
+            skipBtn.classList.remove('show');
+            hud.classList.remove('show');
+
+            const fullScale = getOptimalFullScale();
+            // 하단 버튼 공간을 위해 Y를 살짝 위(-15px)로 보정
+            moveCamera(0, -15, fullScale, 0.8);
+
+            document.getElementById('ancestor-card').classList.add('active-sector');
+            document.querySelectorAll('.tree-path').forEach(p => p.classList.add('active-path'));
+            document.querySelectorAll('.branch-sector').forEach(s => s.classList.add('active-sector'));
+            document.querySelectorAll('.node').forEach(n => {
+                n.classList.add('pop-in');
+                n.classList.add('passed');
+            });
+            document.querySelectorAll('.tree-stem-line').forEach(st => st.classList.add('active'));
+
+            setTimeout(() => { nextBtn.classList.add('show'); }, 600);
+        }
+
+        // 🎬 시네마틱 투어
+        async function startTreeCinematic() {
+            cover.classList.add('hide');
+            hud.classList.add('show');
+            skipBtn.classList.add('show');
+
+            // [STEP 1] 공통 조상
+            document.getElementById('ancestor-card').classList.add('active-sector');
+            moveCamera(0, 560, 1.05, 1.4);
+            hudText.textContent = "공통의 뿌리: 1960~80년대 원류와 장르 문법의 체계화";
+            await sleep(500);
+            await popNodesSequence('.anc-node', null, 190);
+            await sleep(2200);
+            if (isSkipped) return;
+            document.getElementById('ancestor-card').classList.remove('active-sector');
+            document.querySelectorAll('.anc-node').forEach(n => n.classList.add('passed'));
+
+            // [STEP 2] 줄기 1
+            document.getElementById('path-1').classList.add('active-path');
+            document.getElementById('sector-1').classList.add('active-sector');
+            moveCamera(2220, -70, 1.02, 1.3);
+            hudText.textContent = "줄기 1: 소년 만화 및 다크 판타지 (왕도 배틀과 인간 본성의 해체)";
+            await sleep(400);
+            await popNodesSequence('.sec1-node', '.stem-1', 140);
+            await sleep(1400);
+            if (isSkipped) return;
+            settleSector('sector-1', '.sec1-node');
+
+            // [STEP 3] 줄기 2
+            document.getElementById('path-2').classList.add('active-path');
+            document.getElementById('sector-2').classList.add('active-sector');
+            moveCamera(1110, -70, 1.02, 1.3);
+            hudText.textContent = "줄기 2: SF, 메카닉, 세카이계 (자아 탐구와 실존주의 내러티브)";
+            await sleep(400);
+            await popNodesSequence('.sec2-node', '.stem-2', 140);
+            await sleep(1400);
+            if (isSkipped) return;
+            settleSector('sector-2', '.sec2-node');
+
+            // [STEP 4] 줄기 3
+            document.getElementById('path-3').classList.add('active-path');
+            document.getElementById('sector-3').classList.add('active-sector');
+            moveCamera(0, -70, 1.02, 1.3);
+            hudText.textContent = "줄기 3: 연애 시뮬레이션 및 비주얼 노벨 (다중 루트와 모바일 FGO)";
+            await sleep(400);
+            await popNodesSequence('.sec3-node', '.stem-3', 140);
+            await sleep(1400);
+            if (isSkipped) return;
+            settleSector('sector-3', '.sec3-node');
+
+            // [STEP 5] 줄기 4
+            document.getElementById('path-4').classList.add('active-path');
+            document.getElementById('sector-4').classList.add('active-sector');
+            moveCamera(-1110, -70, 1.02, 1.3);
+            hudText.textContent = "줄기 4: 마법소녀, 일상계, 아이돌, 현실 확장 (오시카츠와 지역 연대)";
+            await sleep(400);
+            await popNodesSequence('.sec4-node', '.stem-4', 140);
+            await sleep(1400);
+            if (isSkipped) return;
+            settleSector('sector-4', '.sec4-node');
+
+            // [STEP 6] 줄기 5
+            document.getElementById('path-5').classList.add('active-path');
+            document.getElementById('sector-5').classList.add('active-sector');
+            moveCamera(-2220, -70, 1.02, 1.3);
+            hudText.textContent = "줄기 5: 프로슈머 생태계 및 보컬로이드 (여백의 창작과 J-Pop 메이저 장악)";
+            await sleep(400);
+            await popNodesSequence('.sec5-node', '.stem-5', 140);
+            await sleep(1400);
+            if (isSkipped) return;
+            settleSector('sector-5', '.sec5-node');
+
+            // [STEP 7] 🌟 웅장한 최종 반응형 줌아웃
+            hudText.textContent = "일본 서브컬처 미디어 진화의 완전한 계보도";
+
+            document.getElementById('ancestor-card').classList.add('active-sector');
+            document.querySelectorAll('.tree-path').forEach(p => p.classList.add('active-path'));
+            document.querySelectorAll('.branch-sector').forEach(s => s.classList.add('active-sector'));
+            document.querySelectorAll('.node').forEach(n => n.classList.add('passed'));
+
+            // 🎯 자동 계산된 최적 배율로 화면 정중앙에 100% 핏
+            const fullScale = getOptimalFullScale();
+            moveCamera(0, -15, fullScale, 2.0);
+
+            await sleep(1800);
+            hud.classList.remove('show');
+            skipBtn.classList.remove('show');
+            nextBtn.classList.add('show');
+        }
+
+        // 브라우저 창 크기가 조절되더라도 최종 풀샷 상태라면 자동으로 재피팅
+        window.addEventListener('resize', () => {
+            if (nextBtn.classList.contains('show')) {
+                const fullScale = getOptimalFullScale();
+                moveCamera(0, -15, fullScale, 0.3);
+            }
+        });
+
+        function goToNextSlide() {
+            const nextUrl = document.body.getAttribute('data-next') || 'slide01.html';
+            window.location.href = nextUrl;
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === ' ' || e.key === 'Escape') skipToFullView();
+            if (e.key === 'ArrowRight') goToNextSlide();
+        });
+    </script>
+</body>
+</html>
