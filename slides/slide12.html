@@ -4,12 +4,24 @@
     <meta charset="UTF-8">
     <title>웹 PPT - 본문 슬라이드 11</title>
     <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* 비디오 영역 찌그러짐 방지 인라인 보정 */
+        .gif-box video {
+            width: 400px;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            margin-bottom: 15px;
+            background-color: #0f172a;
+            display: block;
+        }
+    </style>
 </head>
 <body data-prev="slide11.html" data-next="slide13.html">
     
     <div class="slide-container full-width">
         
-        <!-- [1단계] 인트로 GIF 레이어 (하레하레 유카이 & 러키스타 OP) -->
         <div id="intro-layer" class="intro-overlay">
             <header class="slide-header">
                 <h2>애니메이션 밖으로 퍼지는 작품 경험</h2>
@@ -17,18 +29,17 @@
             </header>
             <div class="gif-container">
                 <div class="gif-box">
-                    <img src="../assets/haruhi_opt.mp4" alt="하레하레 유카이">
+                    <video id="v-haruhi" src="../assets/haruhi_opt.mp4" autoplay loop muted="muted" playsinline preload="auto"></video>
                     <p>#하레하레유카이 #춤춰보았다</p>
                 </div>
                 <div class="gif-box">
-                    <img src="../assets/luckystar_opt.mp4" alt="러키스타 OP">
+                    <video id="v-lucky" src="../assets/luckystar_opt.mp4" autoplay loop muted="muted" playsinline preload="auto"></video>
                     <p>#러키스타 #가져가세라복</p>
                 </div>
             </div>
             <div class="click-guide">[➔] 방향키를 누르거나 화면을 클릭하면 분석 내용이 나타납니다</div>
         </div>
 
-        <!-- [2단계] 본문 분석 내용 레이어 (1, 2번만 크게 강조) -->
         <div id="content-layer" class="main-content-hidden">
             <header class="slide-header">
                 <h2>애니메이션 밖으로 퍼지는 작품 경험</h2>
@@ -36,7 +47,6 @@
             </header>
 
             <div class="two-panels-layout">
-                <!-- 1. 하루히 -->
                 <div class="large-h-panel panel-haruhi">
                     <img src="../assets/haruhi.webp" alt="스즈미야 하루히의 우울" class="large-panel-img">
                     <div class="panel-text">
@@ -48,7 +58,6 @@
                     </div>
                 </div>
 
-                <!-- 2. 러키스타 & 케이온 -->
                 <div class="large-h-panel panel-sliceoflife">
                     <div class="panel-img-group">
                         <img src="../assets/luckystar.webp" alt="러키스타" class="large-panel-img-half">
@@ -67,22 +76,29 @@
 
     </div>
 
-    <!-- 네비게이션 제어 스크립트 -->
     <script>
         (function() {
+            // 💡 브라우저 Autoplay 정책 우회: 강제 음소거 및 즉시 play() 호출
+            window.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('video').forEach(video => {
+                    video.muted = true;
+                    video.play().catch(err => {
+                        console.log("자동재생 대기 중 (사용자 첫 인터랙션 시 재생):", err);
+                    });
+                });
+            });
+
             const body = document.querySelector('body');
-            const prevPage = body.getAttribute('data-prev'); // slide11.html
-            const nextPage = body.getAttribute('data-next'); // slide13.html
+            const prevPage = body.getAttribute('data-prev');
+            const nextPage = body.getAttribute('data-next');
 
             const intro = document.getElementById('intro-layer');
             const content = document.getElementById('content-layer');
 
-            // step: 0 = 움짤 화면, 1 = 본문 내용 화면
             let step = 0;
 
             function advance() {
                 if (step === 0) {
-                    // 1단계: 움짤 닫고 본문 열기
                     step = 1;
                     intro.style.opacity = '0';
                     setTimeout(() => {
@@ -91,7 +107,6 @@
                         content.classList.add('main-content-visible');
                     }, 300);
                 } else if (step === 1) {
-                    // 2단계: 본문 상태에서 오른쪽 키/클릭 시 다음 슬라이드(slide13.html)로 이동
                     if (nextPage && nextPage !== '') {
                         window.location.href = nextPage;
                     }
@@ -100,7 +115,6 @@
 
             function retreat() {
                 if (step === 1) {
-                    // 본문에서 왼쪽 키 누르면 다시 움짤로 복귀
                     step = 0;
                     content.classList.remove('main-content-visible');
                     content.classList.add('main-content-hidden');
@@ -109,19 +123,18 @@
                         intro.style.opacity = '1';
                     }, 50);
                 } else if (step === 0) {
-                    // 움짤에서 왼쪽 키 누르면 이전 슬라이드(slide11.html)로 이동
                     if (prevPage && prevPage !== '') {
                         window.location.href = prevPage;
                     }
                 }
             }
 
-            // 화면 클릭 시 앞으로 진행
-            document.body.addEventListener('click', function() {
+            document.body.addEventListener('click', function(e) {
+                // 첫 클릭 시 음소거 해제 없이 영상 확실히 재생
+                document.querySelectorAll('video').forEach(v => { if (v.paused) v.play(); });
                 advance();
             });
 
-            // 방향키 리스너
             document.addEventListener('keydown', function(event) {
                 if (event.key === 'ArrowRight') {
                     advance();
